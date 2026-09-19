@@ -4,7 +4,7 @@
 
 The architecture and repository harness satisfy the pre-implementation gate: one canonical source-of-truth policy, explicit product constitution, versioned Phase-1 contracts, executable T001 definition, deterministic local test assets, ADRs, security boundaries, resource assumptions, approval boundaries and a handoff that identifies the next task.
 
-The latest Work handoff has now been synchronized to the canonical GitHub repository. Verified content commit: `5377e75d9ca0f5dbe1c78bf4b102cde322e330d5`.
+The latest Work handoff has now been synchronized to the canonical GitHub repository. Verified content commit: `cf6183981cdbf2aea696363d3a277b4066cac9a8`.
 
 This synchronization did **not** execute T001 and did **not** begin the Codex implementation loop.
 

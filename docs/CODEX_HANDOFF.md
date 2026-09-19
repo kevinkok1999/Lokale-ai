@@ -6,7 +6,7 @@ Local AI OS is a local-first personal AI operating system. The first implementat
 
 ## Canonical truth and Git status
 
-Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this handoff. The latest fully verified synchronized content commit is `5377e75d9ca0f5dbe1c78bf4b102cde322e330d5`. A later state/receipt commit may be HEAD by design.
+Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this handoff. The latest fully verified synchronized content commit is `cf6183981cdbf2aea696363d3a277b4066cac9a8`. A later state/receipt commit may be HEAD by design.
 
 The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding status documents are preserved for history but are superseded for current state by `.ai/project-state.yaml`, this handoff and `docs/CODING_READY_REPORT.md`.
 

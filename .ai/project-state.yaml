@@ -4,7 +4,7 @@ phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
 architecture_version: "1.2-final-scope-policy"
 last_updated: "2026-09-20"
-last_verified_commit: "5377e75d9ca0f5dbe1c78bf4b102cde322e330d5"
+last_verified_commit: "cf6183981cdbf2aea696363d3a277b4066cac9a8"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
 current_milestone: "Contract-first first vertical slice"
 project_completion:
@@ -74,6 +74,7 @@ evidence:
   reports:
     - ".ai/reports/2026-09-19-discovery-audit.md"
     - ".ai/reports/2026-09-20-github-sync.md"
+    - ".ai/reports/2026-09-20-final-completion-policy.md"
   artifacts:
     - ".ai/evidence/doctor-workspace.json"
     - ".ai/evidence/T001-schema-validation.json"
@@ -85,7 +86,7 @@ known_risks:
   - "T001 remains READY and must be executed/reviewed in the Codex implementation phase"
 environment:
   verified_on: "Canonical GitHub repository content and Work handoff synchronization"
-  remote: "kevinkok1999/Lokale-ai main synchronized through verified content commit 5377e75d9ca0f5dbe1c78bf4b102cde322e330d5"
+  remote: "kevinkok1999/Lokale-ai main synchronized through verified content commit cf6183981cdbf2aea696363d3a277b4066cac9a8"
   control: "HP EliteDesk 800 G3 Mini; live values unverified"
   compute: "Ryzen 7 7700 + RTX 5070 Ti; live values unverified"
   network: "LAN topology and firewall state unverified"
