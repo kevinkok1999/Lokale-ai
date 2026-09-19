@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "kind": "multispecialist-toolchain-validation",
+  "verified_at": "2026-09-20",
+  "status": "PASS",
+  "connected_checks": {
+    "exa": "PASS_read_research",
+    "neon": "PASS_read_only_discovery",
+    "github": "PASS_repository_access",
+    "context7": "PASS_prior_policy_and_live_usage_in_session"
+  },
+  "safety": {
+    "neon_mutations_performed": false,
+    "production_changes": false,
+    "paid_resources_created": false,
+    "secrets_committed": false,
+    "t001_executed": false
+  },
+  "notes": [
+    "Tool availability in this ChatGPT session does not itself prove the same connectors are already configured inside the user's local Codex environment.",
+    "The unified Codex prompt must verify required specialist connectivity locally and ask only for minimum setup/auth when missing."
+  ]
+}

@@ -1,0 +1,68 @@
+schema_version: "1.0"
+policy_id: "local-ai-os-neon-v1"
+status: ACTIVE
+purpose: "Use Neon as a branch-first Postgres/backend specialist where it adds value, without turning the offline-first Local AI OS core into a cloud dependency."
+
+architecture_boundary:
+  local_core_remains_offline_first: true
+  neon_is_optional_external_backend_adapter: true
+  do_not_make_neon_required_for_control_plane_boot: true
+  heavy_or_core_state_placement_requires_architecture_decision_and_resource_evidence: true
+
+autonomous_read_only:
+  - list_projects_branches_and_databases
+  - inspect_schema
+  - inspect_slow_queries
+  - explain_sql
+  - inspect_logs_when_available
+  - compare_schema
+  - read_neon_documentation
+
+branch_first:
+  preferred: true
+  rule: "Test schema/database changes on an isolated Neon branch or temporary migration branch before any protected/default/production change."
+  pair_with_git_branch_when_practical: true
+
+migrations:
+  manage_as_code: true
+  direct_connection_for_migrations: true
+  pooled_connection_for_normal_serverless_app_traffic: true
+  destructive_sql_never_autonomous: true
+  production_or_default_branch_apply_requires_explicit_approval: true
+  migration_process:
+    - prepare_on_temporary_branch
+    - run_tests_and_schema_checks
+    - compare_diff
+    - capture_receipt
+    - ask_for_required_approval
+    - apply_or_discard
+    - verify_after_apply
+
+cost_and_provisioning:
+  new_billable_resource_requires_explicit_approval: true
+  scaling_that_may_increase_cost_requires_explicit_approval: true
+  do_not_create_cloud_resources_just_because_plugin_is_available: true
+
+data_safety:
+  backup_or_restore_plan_before_high_impact_stateful_change: true
+  no_credentials_in_git: true
+  no_connection_strings_in_public_repo: true
+  use_secret_or_runtime_env_mechanism: true
+
+receipts:
+  directory: ".ai/neon/receipts"
+  fields:
+    - task_id
+    - lane_id
+    - project_or_environment_alias
+    - branch_alias
+    - operation_class
+    - schema_or_query_evidence
+    - tests
+    - rollback_or_discard_path
+    - approval_state
+    - checked_at
+
+verification:
+  never_claim_local_offline_database_verified_from_neon_only: true
+  never_claim_production_verified_from_dev_branch: true

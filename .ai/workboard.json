@@ -99,6 +99,80 @@
       },
       "checkpoint": null,
       "blocker": "Requires Context7 access in the Codex session when activated"
+    },
+    {
+      "lane_id": "exa-research",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Provide current broad web research, benchmarks, papers, alternatives and practitioner evidence when routed by the Controller.",
+      "dependencies": [
+        "research_need_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        ".ai/exa-policy.yaml",
+        "public web sources"
+      ],
+      "write_set": [
+        "Exa research receipt returned to Controller; canonical integration by Controller only"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Exa access in the Codex session when activated"
+    },
+    {
+      "lane_id": "neon-backend",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Provide read-only or branch-first Postgres/backend analysis and evidence when a task requires database work.",
+      "dependencies": [
+        "database_or_backend_need_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        ".ai/neon-policy.yaml",
+        "repository migrations/schema",
+        "authorized Neon metadata"
+      ],
+      "write_set": [
+        "Neon receipt returned to Controller; cloud writes only within approval/policy boundaries"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Neon access and an explicitly relevant database task when activated"
+    },
+    {
+      "lane_id": "github-remote",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Handle canonical remote sync, PR/review, CI/workflow evidence and artifacts when local work reaches a remote boundary.",
+      "dependencies": [
+        "remote_operation_needed"
+      ],
+      "read_set": [
+        "task receipt",
+        "local Git checkpoint",
+        ".ai/github-policy.yaml",
+        "GitHub remote state"
+      ],
+      "write_set": [
+        "GitHub remote objects through Controller-approved integration flow"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires GitHub authentication/connection when activated"
     }
   ],
   "merge_order": [
@@ -111,6 +185,7 @@
     "Controller serializes canonical updates so parallel workers do not race on the blackboard.",
     "T001 remains READY; optimization work does not execute it.",
     "Base commit refreshed to the latest verified parallel-coordination content commit.",
-    "Context7 documentation lane is activated only for external library/framework/SDK/API/CLI/cloud-service semantics."
+    "Context7 documentation lane is activated only for external library/framework/SDK/API/CLI/cloud-service semantics.",
+    "Context7, Exa, Neon and GitHub remain available throughout the project but are activated selectively by the specialist router."
   ]
 }

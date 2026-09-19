@@ -39,6 +39,17 @@ Then load only the minimum canonical set:
 
 Use progressive disclosure after that. Read architecture/security/resource/test/subsystem docs and ADRs only when the current task or gate requires them. Load full final-scope/completion material at milestone/final-gate decisions rather than repeatedly injecting all of it into every implementation step.
 
+## Specialist routing
+
+Use `.ai/specialist-router.yaml`. Context7, Exa, Neon and GitHub remain available through the whole project, but invoking all of them for every task is wasteful.
+
+- Context7: exact current API/docs.
+- Exa: broad current research and source-grounded comparison.
+- Neon: relevant database/backend work with branch-first evidence.
+- GitHub: remote sync, PR/review, CI and artifacts.
+
+This selective routing is faster and more reliable than unconditional fan-out.
+
 ## Context7 documentation specialist
 
 Context7 is a parallel specialist for current external documentation. It is triggered only when a task depends on a library/framework/SDK/API/CLI/cloud-service contract, version-specific setup, migration or library-specific debugging.

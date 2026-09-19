@@ -1,4 +1,4 @@
-schema_version: "1.1"
+schema_version: "1.2"
 policy_id: "local-ai-os-parallel-coordination-v1"
 status: ACTIVE
 goal: "Run independent work concurrently while preserving one coherent plan, shared awareness, deterministic integration and bounded resource use."
@@ -48,6 +48,24 @@ roles:
       - query_one_specific_concept_at_a_time
       - return_compact_documentation_receipt
       - notify_controller_if_docs_change_another_lane_assumption
+  exa_specialist:
+    responsibilities:
+      - research_current_external_landscape_when_routed
+      - validate_and_deduplicate_sources
+      - return_compact_source_grounded_receipt
+      - publish_findings_that_change_architecture_or_task_assumptions
+  neon_specialist:
+    responsibilities:
+      - inspect_database_state_read_only_when_routed
+      - use_branch_first_testing_for_stateful_changes
+      - never_execute_destructive_or_production_apply_without_required_approval
+      - return_schema_query_migration_or_recovery_receipt
+  github_specialist:
+    responsibilities:
+      - maintain_remote_sync_and_reviewable_history
+      - inspect_pr_ci_workflow_and_artifact_evidence
+      - serialize_single_runner_usage
+      - never_treat_remote_unavailability_as_a_reason_to_stop_safe_local_work
   verifier:
     responsibilities:
       - verify receipts against the assigned scope and checkpoint
@@ -63,6 +81,9 @@ parallelism:
     - non_overlapping_isolated_worktrees
     - documentation_or_evidence_work_with_non_overlapping_write_sets
     - context7_documentation_lane_parallel_with_independent_repository_analysis
+    - exa_research_lane_parallel_with_independent_implementation
+    - neon_read_only_analysis_parallel_with_nonconflicting_local_work
+    - github_remote_review_or_status_checks_parallel_with_local_read_only_work
   serialized:
     - writes_to_same_file_or_contract_boundary
     - canonical_project_state_update

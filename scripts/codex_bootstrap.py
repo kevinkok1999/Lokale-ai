@@ -22,6 +22,7 @@ REQUIRED = [
     "AGENTS.md",
     ".ai/project-state.yaml",
     ".ai/execution-policy.yaml",
+    ".ai/specialist-router.yaml",
     ".ai/coordination-policy.yaml",
     ".ai/workboard.json",
     "docs/SOURCE_OF_TRUTH.md",
@@ -102,6 +103,11 @@ def main() -> int:
             for name in ("git", "python", "python3", "node", "npm", "docker")
         },
         "recommended_initial_read_set": canonical,
+        "specialist_toolchain": {
+            "router": ".ai/specialist-router.yaml",
+            "specialists": ["context7", "exa", "neon", "github"],
+            "rule": "Keep all available; activate only specialists required by the current task envelope."
+        },
         "parallel_coordination": {
             "policy": ".ai/coordination-policy.yaml",
             "workboard": ".ai/workboard.json",

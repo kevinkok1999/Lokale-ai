@@ -20,7 +20,12 @@ Authoritative artifacts:
 - decisions: `docs/adr/`
 - implementation sequence: `docs/IMPLEMENTATION_BACKLOG.md`
 - execution/scheduling policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`
+- specialist routing: `.ai/specialist-router.yaml` and `docs/SPECIALIST_TOOLCHAIN.md`
 - current external technology documentation policy: `.ai/context7-policy.yaml`, `docs/CONTEXT7_INTEGRATION.md` and ADR 0004
+- broad external research policy: `.ai/exa-policy.yaml`
+- database/backend specialist policy: `.ai/neon-policy.yaml`
+- GitHub remote/CI policy: `.ai/github-policy.yaml`
+- coordinated specialist decision: `docs/adr/0005-coordinated-specialist-toolchain.md`
 - Codex continuation: `docs/CODEX_HANDOFF.md`
 - evidence: `.ai/evidence/` and `.ai/reports/`
 

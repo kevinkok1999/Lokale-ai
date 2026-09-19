@@ -1,8 +1,8 @@
-schema_version: "1.5"
+schema_version: "1.6"
 project: local-ai-os
 phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
-architecture_version: "1.5-context7-collaboration"
+architecture_version: "1.6-multispecialist-toolchain"
 last_updated: "2026-09-20"
 last_verified_commit: "b1dbf6d8e915c22a76df8fa6e526a3bccbabdbff"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
@@ -18,7 +18,11 @@ execution:
   github_actions_runner_slots: 1
   heavy_gpu_job_slots_initial: 1
   coordination_policy: ".ai/coordination-policy.yaml"
+  specialist_router: ".ai/specialist-router.yaml"
   context7_policy: ".ai/context7-policy.yaml"
+  exa_policy: ".ai/exa-policy.yaml"
+  neon_policy: ".ai/neon-policy.yaml"
+  github_policy: ".ai/github-policy.yaml"
   context7_mode: "current_docs_specialist_on_demand"
   workboard: ".ai/workboard.json"
   coordination_check: "python scripts/coordination_check.py --json"
@@ -48,6 +52,7 @@ completed_milestones:
   - "Controller/Assistant/Verifier execution policy and fast Codex bootstrap established"
   - "Coordinated parallel-team policy, shared workboard and lane receipts established"
   - "Codex + Context7 current-documentation collaboration policy established"
+  - "Context7 + Exa + Neon + GitHub specialist routing established"
 active_tasks:
   - id: T001
     title: "Implement canonical schemas and validation harness"

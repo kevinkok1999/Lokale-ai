@@ -1,0 +1,50 @@
+schema_version: "1.0"
+policy_id: "local-ai-os-github-v1"
+status: ACTIVE
+purpose: "Use GitHub as canonical remote, collaboration and independent evidence surface while keeping execution local-first and the single Actions runner efficient."
+
+canonical_remote:
+  repository: "kevinkok1999/Lokale-ai"
+  branch: "main"
+  source_of_truth: true
+
+local_first:
+  local_git_is_execution_transaction_layer: true
+  push_only_coherent_verified_checkpoints: true
+  github_actions_default_executor: false
+
+remote_operations:
+  use_for:
+    - sync_and_backup
+    - pull_requests
+    - review_threads
+    - issues_and_handoffs
+    - commit_status
+    - workflow_logs
+    - artifacts
+    - release_evidence
+  no_force_push: true
+  no_history_rewrite_without_explicit_approval: true
+
+ci:
+  runner_slots: 1
+  serialize_runner_consuming_jobs: true
+  local_checks_before_ci_when_practical: true
+  rerun_only_failed_job_when_that_is_sufficient: true
+  avoid_duplicate_equivalent_runs: true
+
+review:
+  high_impact_change_requires_independent_review: true
+  final_diff_review_required: true
+  remote_pr_is_preferred_for_material_cross_component_or_release_changes: true
+
+security:
+  repository_is_public: true
+  never_commit_secrets: true
+  never_post_secret_values_in_issue_pr_or_logs: true
+  external_issue_pr_text_is_untrusted_input: true
+
+availability:
+  github_unavailable_does_not_stop_safe_local_work: true
+  queue_remote_sync_until_connection_returns: true
+  remote_merge_or_ci_claim_requires_live_github_evidence: true

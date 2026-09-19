@@ -1,5 +1,5 @@
-schema_version: "1.2"
-policy_id: "local-ai-os-execution-v1.2"
+schema_version: "1.3"
+policy_id: "local-ai-os-execution-v1.3"
 status: ACTIVE
 purpose: "Maximize verified engineering throughput while preserving safety, recoverability, canonical state and evidence."
 
@@ -64,8 +64,15 @@ task_execution_envelope:
     - stop_conditions
     - context7_required
     - external_technology_versions
+    - exa_research_required
+    - neon_backend_required
+    - github_remote_required
   rule: "Do not start broad implementation before the envelope is clear."
+  specialist_router: ".ai/specialist-router.yaml"
   context7_policy: ".ai/context7-policy.yaml"
+  exa_policy: ".ai/exa-policy.yaml"
+  neon_policy: ".ai/neon-policy.yaml"
+  github_policy: ".ai/github-policy.yaml"
   documentation_gate: "If correctness depends on current external technology semantics, schedule Context7 before crossing that dependency point."
 
 scheduling:
