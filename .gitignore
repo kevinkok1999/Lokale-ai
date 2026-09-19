@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.tmp
+*.temp
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+.DS_Store
+Thumbs.db
+local-ai-os-*.zip
+.ai/evidence/doctor-windows.json
+.ai/evidence/doctor-*.json
+!.ai/evidence/doctor-workspace.json

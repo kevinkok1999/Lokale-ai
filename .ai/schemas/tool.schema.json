@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local-ai-os/tool",
+  "type": "object",
+  "required": ["schema_version","tool_id","capability","input_schema_ref","risk_level","requires_approval"],
+  "properties": {
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"},
+    "tool_id":{"type":"string","minLength":1},
+    "capability":{"type":"string","minLength":1},
+    "input_schema_ref":{"type":"string","minLength":1},
+    "output_schema_ref":{"type":"string","minLength":1},
+    "risk_level":{"enum":["low","medium","high"]},
+    "requires_approval":{"type":"boolean"},
+    "network_access":{"type":"boolean"},
+    "filesystem_access":{"type":"array","items":{"type":"string","minLength":1}}
+  },
+  "additionalProperties":false
+}

@@ -1,0 +1,28 @@
+id: T001
+title: Implement canonical schemas and validation harness
+status: READY
+owner_capability: contracts
+risk: medium
+dependencies: []
+inputs:
+  - .ai/schemas/*.schema.json
+  - docs/API_CONTRACTS.md
+  - docs/EVENT_CONTRACTS.md
+commands:
+  - python3 scripts/validate_contracts.py
+  - python3 -m unittest discover -s tests/contracts -p '*_test.py'
+acceptance_criteria:
+  - schemas exist for Project, Task, Run, Agent, Event, Artifact, Approval, Node, HealthStatus, ResourceState, Model and Tool
+  - every schema is a closed object with schema_version and declared required properties
+  - valid fixtures are accepted and missing required fields/unknown fields are rejected
+  - evidence is written to .ai/evidence/T001-schema-validation.json
+  - no language-specific duplicate becomes authoritative
+outputs:
+  - scripts/validate_contracts.py
+  - tests/contracts/
+  - .ai/evidence/T001-schema-validation.json
+definition_of_done:
+  - commands pass
+  - diff reviewed
+  - evidence and project-state updated
+  - no secrets or generated temporary artifacts committed

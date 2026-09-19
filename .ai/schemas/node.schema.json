@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"local-ai-os/node",
+  "type":"object",
+  "required":["schema_version","node_id","role","status","capabilities"],
+  "properties":{
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"},
+    "node_id":{"type":"string","minLength":1},
+    "role":{"enum":["CONTROL","COMPUTE","DEVELOPER","FULL"]},
+    "status":{"enum":["online","degraded","offline","unknown"]},
+    "capabilities":{"type":"array","items":{"type":"string","minLength":1}},
+    "identity_fingerprint":{"type":"string","minLength":1}
+  },
+  "additionalProperties":false
+}

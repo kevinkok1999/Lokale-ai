@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"local-ai-os/model",
+  "type":"object",
+  "required":["schema_version","model_id","provider","capabilities","last_validated"],
+  "properties":{
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"},
+    "model_id":{"type":"string","minLength":1},
+    "provider":{"type":"string","minLength":1},
+    "capabilities":{"type":"array","items":{"type":"string","minLength":1}},
+    "context_tokens":{"type":"integer","minimum":1},
+    "ram_mb":{"type":"integer","minimum":0},
+    "vram_mb":{"type":"integer","minimum":0},
+    "quantization":{"type":"string","minLength":1},
+    "last_validated":{"type":"string","format":"date-time"}
+  },
+  "additionalProperties":false
+}

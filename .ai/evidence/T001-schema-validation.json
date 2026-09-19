@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "status": "pass",
+  "schema_count": 12,
+  "schemas": [
+    "agent.schema.json",
+    "approval.schema.json",
+    "artifact.schema.json",
+    "event.schema.json",
+    "health-status.schema.json",
+    "model.schema.json",
+    "node.schema.json",
+    "project.schema.json",
+    "resource-state.schema.json",
+    "run.schema.json",
+    "task.schema.json",
+    "tool.schema.json"
+  ]
+}

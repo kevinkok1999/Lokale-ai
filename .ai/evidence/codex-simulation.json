@@ -1,0 +1,14 @@
+{
+  "schema_version": "v1",
+  "status": "pass",
+  "checks": {
+    "state_exists": true,
+    "handoff_exists": true,
+    "next_task_named": true,
+    "canonical_commit_real": true,
+    "schema_families": true,
+    "approval_boundaries": true,
+    "hardware_disclaimer": true,
+    "no_production_claim": true
+  }
+}

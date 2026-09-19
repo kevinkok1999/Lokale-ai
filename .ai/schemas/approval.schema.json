@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local-ai-os/approval",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "approval_id",
+    "project_id",
+    "action",
+    "risk",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {"type":"string","pattern":"^v[0-9]+$"},
+    "approval_id": {"type":"string","minLength":1},
+    "project_id": {"type":"string","minLength":1},
+    "action": {"type":"string","minLength":1},
+    "risk": {"enum":["low","medium","high"]},
+    "status": {"enum":["PENDING","APPROVED","REJECTED","EXPIRED"]},
+    "requested_by": {"type":"string","minLength":1},
+    "decided_by": {"type":["string","null"]}
+  },
+  "additionalProperties": false
+}

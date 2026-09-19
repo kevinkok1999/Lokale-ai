@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"local-ai-os/health-status",
+  "type":"object",
+  "required":["schema_version","node_id","status","checked_at","checks"],
+  "properties":{
+    "node_id":{"type":"string"},
+    "status":{"enum":["healthy","degraded","offline","unknown"]},
+    "checked_at":{"type":"string","format":"date-time"},
+    "checks":{"type":"array","items":{"type":"object","required":["name","status"],"properties":{"name":{"type":"string"},"status":{"enum":["pass","warn","fail"]},"detail":{"type":"string"}},"additionalProperties":false}},
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"}
+  },
+  "additionalProperties":false
+}

@@ -1,0 +1,75 @@
+schema_version: "1.1"
+project: local-ai-os
+phase: "F_CODEX_READY"
+status: "READY_FOR_CODEX_IMPLEMENTATION"
+architecture_version: "1.1-freeze-candidate"
+last_updated: "2026-09-19"
+last_verified_commit: "ac9ef13"
+last_verified_commit_meaning: "Latest complete repository commit verified before this state update"
+current_milestone: "Contract-first first vertical slice"
+completed_milestones:
+  - "Product vision reconstructed"
+  - "Critical audit completed"
+  - "Baseline scorecard recorded"
+  - "Architecture and product constitution strengthened"
+  - "Canonical Phase-1 schema set created"
+  - "Repository cleanup and source-of-truth policy completed"
+active_tasks:
+  - id: T001
+    title: "Implement canonical schemas and validation harness"
+    status: READY
+    owner_capability: contracts
+    risk: medium
+    dependencies: []
+    acceptance_criteria: ["12 Phase-1 schemas validate", "negative fixtures reject missing/unknown fields", "evidence is written"]
+  - id: T004
+    title: "Implement gateway and orchestrator interface skeleton"
+    status: PENDING
+    owner_capability: orchestration
+    risk: medium
+    dependencies: [T001]
+blocked_tasks:
+  - id: T002
+    reason: "Live CONTROL/COMPUTE doctor requires execution on target machines"
+  - id: T003
+    reason: "Measured resource placement depends on T002"
+  - id: T009
+    reason: "Hardware/install/release gates follow implementation"
+next_task: T001
+coding_gate:
+  architecture: PASS
+  repository_harness: PASS
+  contracts: PASS
+  implementation: READY_TO_BEGIN
+  hardware: PENDING
+  release: PENDING
+  production: PENDING
+approvals_required: []
+tests:
+  last_run:
+    - "python3 scripts/validate_contracts.py"
+    - "python3 -m unittest discover -s tests/contracts -p '*_test.py'"
+  result: PASS
+  required_later:
+    - "live CONTROL doctor"
+    - "live COMPUTE doctor"
+    - "cross-language generated consumer"
+    - "offline/recovery acceptance tests"
+    - "signed artifact and rollback tests"
+evidence:
+  reports:
+    - ".ai/reports/2026-09-19-discovery-audit.md"
+  artifacts:
+    - ".ai/evidence/doctor-workspace.json"
+    - ".ai/evidence/T001-schema-validation.json"
+known_risks:
+  - "Actual hardware, disk, driver and service state is unverified"
+  - "No production implementation exists yet"
+  - "Pairing and authenticated node protocol remains design-only"
+  - "Heavy infrastructure placement must follow measured budgets"
+  - "GitHub remote synchronization is not verified from this workspace"
+environment:
+  verified_on: "Repository workspace only"
+  control: "HP EliteDesk 800 G3 Mini; live values unverified"
+  compute: "Ryzen 7 7700 + RTX 5070 Ti; live values unverified"
+  network: "LAN topology and firewall state unverified"

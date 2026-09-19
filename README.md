@@ -1,34 +1,31 @@
-# Lokale AI Platform
+# Local AI OS
 
-Status: **PRE-CODING FROZEN**
+Status: **READY_FOR_CODEX_IMPLEMENTATION**
 
-This repository is the canonical implementation repository for the two-node local AI platform.
+This repository is the canonical GitHub source for the Local AI OS pre-implementation handoff. It is not yet a finished AI product and is not production- or hardware-verified.
 
-## Goal
+## Start here
 
-A user-controlled, local-first AI operating platform with:
+Read in this order:
 
-- AI-Core control plane
-- RTX compute node
-- dynamic specialist teams
-- parallel-by-default orchestration
-- durable jobs and recovery
-- one-runner GitHub build queue
-- zero-config installation goal
-- image, video and documentary production
-- security, verification, rollback and auditability
+1. `AGENTS.md`
+2. `.ai/project-state.yaml`
+3. `docs/SOURCE_OF_TRUTH.md`
+4. `docs/CODEX_HANDOFF.md`
+5. relevant architecture, security, resource, test docs and ADRs
 
-## Authority model
+## Current next task
 
-The user is the final authority for goals and irreversible decisions.
-The assistant/orchestrator executes permitted work, coordinates specialist teams, and must never report unverified work as complete.
+`T001` is **READY** and has **not been executed by this synchronization step**. Do not infer completion from the presence of schemas, scripts, tests or historical evidence files; follow the task state and Definition of Done in `.ai/tasks/T001.yaml`.
 
-## Coding rule
+## Product direction
 
-Production implementation starts only after all three pre-coding gates are PASS:
+Local AI OS is a local-first AI operating system intended to coordinate a Master AI, bounded specialist agents, local models, tools, memory and multiple computers. Long-term extension points include ProjectForge, ToolForge, KnowledgeMesh, media production, website/app development, ZeroDeploy, AgentFactory, multi-user support, shadow evaluation and controlled self-improvement.
 
-1. Architecture and data contracts
-2. Resource, security and installer contracts
-3. Engineering, runner, test and release contract
+## Legacy documents
 
-See the documents in `docs/`.
+Older pre-coding freeze documents remain in `docs/` for history. Their status language is superseded by `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, `docs/CODING_READY_REPORT.md` and `docs/CODEX_HANDOFF.md`. See `docs/LEGACY_PRECODING_DOCS.md`.
+
+## Safety boundary
+
+`READY_FOR_CODEX_IMPLEMENTATION` means the repository is ready for Codex to begin the implementation phase. It does **not** mean `HARDWARE_VERIFIED`, `STABLE_RELEASE` or `PRODUCTION_VERIFIED`.

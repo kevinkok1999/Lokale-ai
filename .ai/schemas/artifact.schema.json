@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local-ai-os/artifact",
+  "type": "object",
+  "required": ["schema_version","artifact_id","run_id","kind","sha256"],
+  "properties": {
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"},
+    "artifact_id":{"type":"string","minLength":1},
+    "run_id":{"type":"string","minLength":1},
+    "kind":{"type":"string","minLength":1},
+    "sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "uri":{"type":"string","minLength":1},
+    "media_type":{"type":"string","minLength":1}
+  },
+  "additionalProperties": false
+}

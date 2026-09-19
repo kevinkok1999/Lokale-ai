@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "scope": "repository-workspace",
+  "verified_at": "2026-09-19T21:42:18.140858+00:00",
+  "os": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "cpu": "x86_64",
+  "git": "/workspace/scratch/d854d853aa1b/local-ai-os",
+  "tools": {
+    "git": "/usr/local/bin/git",
+    "docker": null,
+    "node": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "npm": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/npm",
+    "python3": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  "notes": [
+    "Workspace report only; not evidence about target CONTROL or COMPUTE machines."
+  ]
+}

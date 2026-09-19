@@ -1,0 +1,9 @@
+id: T002
+title: Run live hardware and network doctor on CONTROL and COMPUTE
+status: BLOCKED
+owner_capability: installer
+dependencies: []
+blocker: Requires execution on target machines
+acceptance_criteria:
+  - redacted machine-readable reports exist for both nodes
+  - actual OS CPU RAM disk GPU VRAM driver network and service state recorded

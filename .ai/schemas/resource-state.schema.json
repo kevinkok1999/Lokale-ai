@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"local-ai-os/resource-state",
+  "type":"object",
+  "required":["schema_version","node_id","sampled_at","cpu_percent","ram_percent","disk_percent"],
+  "properties":{
+    "schema_version":{"type":"string","pattern":"^v[0-9]+$"},
+    "node_id":{"type":"string","minLength":1},
+    "sampled_at":{"type":"string","format":"date-time"},
+    "cpu_percent":{"type":"number","minimum":0,"maximum":100},
+    "ram_percent":{"type":"number","minimum":0,"maximum":100},
+    "disk_percent":{"type":"number","minimum":0,"maximum":100},
+    "vram_percent":{"type":["number","null"],"minimum":0,"maximum":100},
+    "queue_depth":{"type":"integer","minimum":0}
+  },
+  "additionalProperties":false
+}
