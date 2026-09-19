@@ -22,6 +22,8 @@ REQUIRED = [
     "AGENTS.md",
     ".ai/project-state.yaml",
     ".ai/execution-policy.yaml",
+    ".ai/plugin-team.yaml",
+    ".ai/plugin-registry.yaml",
     ".ai/specialist-router.yaml",
     ".ai/coordination-policy.yaml",
     ".ai/workboard.json",
@@ -105,7 +107,7 @@ def main() -> int:
         "recommended_initial_read_set": canonical,
         "specialist_toolchain": {
             "router": ".ai/specialist-router.yaml",
-            "specialists": ["context7", "exa", "neon", "github"],
+            "specialists": ["context7", "exa", "neon", "github", "vercel", "figma", "canva"],
             "rule": "Keep all available; activate only specialists required by the current task envelope."
         },
         "parallel_coordination": {

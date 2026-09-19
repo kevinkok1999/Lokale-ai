@@ -1,0 +1,80 @@
+schema_version: "1.0"
+status: ACTIVE
+canonical_authority: "Repository policy and project-state; never a plugin"
+
+plugins:
+  - id: context7
+    role: "current technical documentation"
+    lifecycle: "project-wide on demand"
+    current_chat_environment: "available"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "receipt only"
+    policy: ".ai/context7-policy.yaml"
+
+  - id: exa
+    role: "current web research, papers, benchmarks, alternatives and failure modes"
+    lifecycle: "project-wide on demand"
+    current_chat_environment: "connected"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "receipt only"
+    policy: ".ai/exa-policy.yaml"
+
+  - id: neon
+    role: "branch-first Postgres/backend specialist"
+    lifecycle: "project-wide when database/backend work is relevant"
+    current_chat_environment: "connected"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "approval-bounded external backend operations"
+    policy: ".ai/neon-policy.yaml"
+
+  - id: github
+    role: "canonical remote, PR/review, CI, workflow logs and artifacts"
+    lifecycle: "project-wide"
+    current_chat_environment: "connected"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "controller-approved remote integration"
+    policy: ".ai/github-policy.yaml"
+
+  - id: vercel
+    role: "preview/deployment and web/app runtime specialist"
+    lifecycle: "on demand"
+    current_chat_environment: "installed"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "preview/deploy only inside approval policy"
+    policy: "existing deployment and approval rules"
+
+  - id: figma
+    role: "UI/UX design and design-to-code specialist"
+    lifecycle: "on demand"
+    current_chat_environment: "installed"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "design assets only unless controller integrates code"
+    policy: "design work must not override product contracts"
+
+  - id: canva
+    role: "media/design production support"
+    lifecycle: "on demand"
+    current_chat_environment: "installed"
+    local_codex_status: "VERIFY_AT_STARTUP"
+    write_authority: "media/design assets only"
+    policy: "media outputs remain subject to project QA"
+
+suggested_not_yet_assumed_connected:
+  - id: mixpanel
+    role: "product analytics and behavior/evaluation evidence"
+    status: "USER_INSTALL_OR_CONNECT_REQUIRED"
+    canonical: false
+  - id: airtable
+    role: "optional structured operational/evaluation data workspace"
+    status: "USER_INSTALL_OR_CONNECT_REQUIRED"
+    canonical: false
+  - id: monday.com
+    role: "optional human-facing project/portfolio dashboard"
+    status: "USER_INSTALL_OR_CONNECT_REQUIRED"
+    canonical: false
+
+rules:
+  - "Never treat suggested_not_yet_assumed_connected plugins as available until a live connection check passes."
+  - "GitHub repository remains canonical; Airtable/monday.com may mirror status but never replace project-state."
+  - "Mixpanel analytics may inform UX/product quality but never determine correctness alone."
+  - "Discover further plugins only when a concrete capability gap exists."

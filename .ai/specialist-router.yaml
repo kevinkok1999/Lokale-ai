@@ -1,9 +1,12 @@
 schema_version: "1.0"
 policy_id: "local-ai-os-specialist-router-v1"
 status: ACTIVE
-purpose: "Keep Context7, Exa, Neon and GitHub available from project start to finish while invoking each only when it materially improves correctness, evidence or delivery speed."
+purpose: "Route the coordinated plugin project team while invoking each specialist only when it materially improves correctness, evidence or delivery speed."
 
 principle: "Always available; selectively invoked. Do not call every specialist on every task."
+
+plugin_team_policy: ".ai/plugin-team.yaml"
+plugin_registry: ".ai/plugin-registry.yaml"
 
 specialists:
   context7:
@@ -37,6 +40,15 @@ specialists:
       - auth_data_api_or_neon_backend_feature
   github:
     policy: ".ai/github-policy.yaml"
+  vercel:
+    primary_role: "preview deployment, web/app runtime diagnostics and release support"
+    trigger_examples: [preview_required, web_app_deployment, runtime_logs, deployment_validation]
+  figma:
+    primary_role: "UI/UX design, design-system and design-to-code support"
+    trigger_examples: [ui_design, design_review, design_to_code, architecture_diagram]
+  canva:
+    primary_role: "media/design production support"
+    trigger_examples: [marketing_asset, media_pipeline_asset, visual_qa]
     primary_role: "canonical remote, reviewable history, issues/PRs, remote diff/review, CI evidence, artifacts and collaboration"
     trigger_examples:
       - remote_sync

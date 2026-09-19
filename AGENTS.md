@@ -74,14 +74,14 @@ Follow `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
 Use a logical **Controller → Assistant/Executor → Verifier** loop. For parallel work, also follow `.ai/coordination-policy.yaml`, `.ai/workboard.json` and `docs/PARALLEL_EXECUTION.md`.
 
-Use `.ai/specialist-router.yaml` to coordinate Context7, Exa, Neon and GitHub from start to finish.
+Use `.ai/plugin-team.yaml`, `.ai/plugin-registry.yaml` and `.ai/specialist-router.yaml` to coordinate the project plugin team from start to finish. Core project specialists include Context7, Exa, Neon, GitHub, Vercel, Figma and Canva. They share the workboard and must publish cross-lane discoveries through the Controller.
 
 - Context7 is the current-documentation specialist for exact version-specific external APIs.
 - Exa is the broad current-research specialist for architecture choices, benchmarks, papers, alternatives, failure modes and reference implementations.
 - Neon is the branch-first Postgres/backend specialist when database work is relevant; it must not become a hidden dependency of the offline-first core.
 - GitHub is the canonical remote/review/CI specialist while local Git remains the default execution transaction layer.
 
-Do not invoke every specialist on every task. Activate only the lanes that materially improve the current Task Execution Envelope.
+Do not invoke every specialist on every task. Keep the whole team available, but activate only lanes that materially improve the current Task Execution Envelope. The Controller owns the single GitHub Actions runner queue; while that runner is busy, non-runner lanes continue in parallel.
 
 Parallel workers operate as one team: the Controller publishes lane scope/dependencies/resource claims; every worker reads the same workboard before starting; cross-lane discoveries are reported back to the Controller; only the Controller serializes canonical coordination/project-state integration. Do not spawn heavyweight extra agents for trivial work merely to satisfy role names. Parallelize only proven-independent work, keep one Git writer/integrator per repository, serialize the single GitHub Actions runner, and start with one heavy GPU job. Prefer local execution and progressive context loading.
 

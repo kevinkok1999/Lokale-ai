@@ -173,6 +173,78 @@
       },
       "checkpoint": null,
       "blocker": "Requires GitHub authentication/connection when activated"
+    },
+    {
+      "lane_id": "vercel-preview",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Support preview/deployment/runtime work when explicitly routed.",
+      "dependencies": [
+        "preview_or_deployment_need_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        "deployment config",
+        "authorized Vercel state"
+      ],
+      "write_set": [
+        "preview/deployment receipt; writes subject to approval policy"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Vercel access when activated"
+    },
+    {
+      "lane_id": "figma-design",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Support UI/UX, design systems, diagrams and design-to-code work when routed.",
+      "dependencies": [
+        "design_need_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        "UI contracts",
+        "authorized Figma context"
+      ],
+      "write_set": [
+        "design receipt/assets; code integration by Controller/Executor"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Figma access when activated"
+    },
+    {
+      "lane_id": "canva-media",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Support media/design asset production when routed by the media pipeline.",
+      "dependencies": [
+        "media_asset_need_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        "media brief",
+        "authorized Canva context"
+      ],
+      "write_set": [
+        "media/design receipt/assets"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Canva access when activated"
     }
   ],
   "merge_order": [
@@ -186,6 +258,20 @@
     "T001 remains READY; optimization work does not execute it.",
     "Base commit refreshed to the latest verified parallel-coordination content commit.",
     "Context7 documentation lane is activated only for external library/framework/SDK/API/CLI/cloud-service semantics.",
-    "Context7, Exa, Neon and GitHub remain available throughout the project but are activated selectively by the specialist router."
-  ]
+    "Context7, Exa, Neon and GitHub remain available throughout the project but are activated selectively by the specialist router.",
+    "Plugin project team shares one workboard; single-runner queue only serializes runner-consuming CI, not unrelated specialist lanes."
+  ],
+  "runner_queue": {
+    "slots": 1,
+    "owner": "controller-runner-scheduler",
+    "state": "IDLE",
+    "active_job": null,
+    "queued_jobs": [],
+    "rule": "Only GitHub Actions runner-consuming jobs serialize here; independent plugin lanes continue."
+  },
+  "team_channels": {
+    "discoveries": [],
+    "controller_broadcasts": [],
+    "rule": "Active lanes publish assumption-changing discoveries through Controller before dependent integration."
+  }
 }

@@ -139,6 +139,7 @@ integration:
 
 resource_semaphores:
   github_actions_runner: 1
+  plugin_team_canonical_writer: 1
   heavy_gpu: 1
   git_main_integrator: 1
   canonical_state_writer: 1

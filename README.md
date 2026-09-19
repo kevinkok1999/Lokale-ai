@@ -22,7 +22,7 @@ When the repository is open locally, run `python scripts/codex_bootstrap.py` (or
 
 Execution policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
-Specialist toolchain: Context7 + Exa + Neon + GitHub, coordinated by `.ai/specialist-router.yaml`. See `docs/SPECIALIST_TOOLCHAIN.md`. Context7 handles exact current docs, Exa broader research, Neon relevant Postgres/backend work, and GitHub remote review/CI/history.
+Plugin project team: Context7 + Exa + Neon + GitHub + Vercel + Figma + Canva, coordinated by `.ai/plugin-team.yaml`, `.ai/plugin-registry.yaml` and `.ai/specialist-router.yaml`. See `docs/PLUGIN_PROJECT_TEAM.md` and `docs/SPECIALIST_TOOLCHAIN.md`.
 
 ## Current next task
 
