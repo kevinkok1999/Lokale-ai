@@ -22,3 +22,17 @@ Implemented:
 No Context7 API key or credential was committed.
 
 T001 remains READY. This update configures the collaboration process but does not execute the Codex implementation task or prove Context7 is connected on the user's brother's PC.
+
+
+## Static canonical validation
+
+At content commit `b1dbf6d8e915c22a76df8fa6e526a3bccbabdbff`:
+
+- Context7 policy file exists;
+- Context7 specialist lane exists and is STANDBY;
+- workboard lane IDs are unique;
+- canonical workboard writer remains Controller-only;
+- no credential was added;
+- T001 remains READY.
+
+Actual Context7 connectivity inside Codex on the development PC is still a local prerequisite and has not been claimed as verified.
