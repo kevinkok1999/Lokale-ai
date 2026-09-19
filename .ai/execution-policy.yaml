@@ -1,0 +1,162 @@
+schema_version: "1.0"
+policy_id: "local-ai-os-execution-v1"
+status: ACTIVE
+purpose: "Maximize verified engineering throughput while preserving safety, recoverability, canonical state and evidence."
+
+objectives:
+  order:
+    - correctness
+    - low_rework
+    - throughput
+    - resumability
+    - resource_efficiency
+    - autonomy
+  principle: "Fast means less wasted work, not skipped evidence."
+
+control_loop:
+  controller:
+    responsibilities:
+      - verify current task, dependencies, blockers and approval class
+      - build a minimal Task Execution Envelope
+      - choose only relevant context, tests, tools and resources
+      - prevent duplicate work and architecture drift
+      - stop only the conflicting path when a real conflict exists
+  assistant_executor:
+    responsibilities:
+      - implement the smallest coherent change
+      - use existing abstractions before adding dependencies
+      - capture failures and perform root-cause fixes
+      - preserve unrelated user changes
+  verifier:
+    responsibilities:
+      - review final diff and evidence
+      - run or require the appropriate test tier
+      - check secrets, regression risk and policy compliance
+      - never upgrade verification level without evidence
+  note: "These are execution roles. They do not require spawning three heavyweight agents for trivial work. Use logical phases unless independent verification is required."
+
+startup:
+  fast_preflight_command: "python scripts/codex_bootstrap.py"
+  fallback_if_python_unavailable: "Read AGENTS.md, .ai/project-state.yaml, docs/SOURCE_OF_TRUTH.md, docs/CODEX_HANDOFF.md and current task manually."
+  initial_read_set:
+    - AGENTS.md
+    - .ai/project-state.yaml
+    - docs/SOURCE_OF_TRUTH.md
+    - .ai/execution-policy.yaml
+    - docs/CODEX_HANDOFF.md
+    - current_task_file
+  progressive_disclosure: true
+  rule: "Load subsystem docs, ADRs, final-scope details and historical evidence only when the current task or gate references them."
+
+task_execution_envelope:
+  required_fields:
+    - task_id
+    - objective
+    - dependencies
+    - risk
+    - approval_class
+    - relevant_files
+    - expected_outputs
+    - test_tiers
+    - resource_class
+    - cache_inputs
+    - evidence_target
+    - stop_conditions
+  rule: "Do not start broad implementation before the envelope is clear."
+
+scheduling:
+  priority_order:
+    - explicit_user_priority
+    - highest_priority_unblocked_critical_path
+    - release_or_security_blocker
+    - highest_value_unblocked_task
+    - optimization_or_cleanup
+  blocked_task_is_not_global_block: true
+  one_git_writer_per_repository: true
+  independent_read_only_work_may_parallelize: true
+  isolated_worktrees_may_parallelize_when_resources_allow: true
+  avoid_agent_fanout_for_small_tasks: true
+
+resource_limits:
+  github_actions_runner_slots: 1
+  heavy_gpu_job_slots_initial: 1
+  git_writer_slots_per_repo: 1
+  local_cpu_parallelism: "adaptive_after_measurement"
+  rule: "Queue instead of oversubscribing constrained resources."
+
+test_ladder:
+  - tier: 0
+    name: fast_static
+    examples: ["schema/config validation", "format", "lint", "type/static checks"]
+  - tier: 1
+    name: targeted_unit
+    examples: ["changed-module unit tests", "negative fixtures"]
+  - tier: 2
+    name: contract_component
+    examples: ["contract tests", "component tests"]
+  - tier: 3
+    name: integration
+    examples: ["cross-component integration", "persistence/recovery integration"]
+  - tier: 4
+    name: e2e_hardware_release
+    examples: ["E2E", "hardware", "chaos/recovery", "installer", "release", "production gates"]
+  fail_fast: true
+  rule: "Run the cheapest relevant tier first. Do not run expensive downstream gates after an earlier required tier fails."
+
+retry_policy:
+  same_strategy_max_attempts: 2
+  after_limit: "Reassess root cause, change approach, reduce scope or escalate if a real boundary exists."
+  unbounded_retry_forbidden: true
+
+cache_policy:
+  reuse_allowed_when:
+    - inputs_unchanged
+    - toolchain_or_lockfiles_unchanged
+    - environment_fingerprint_compatible
+    - evidence_scope_matches
+  never_reuse_as_fresh_evidence:
+    - hardware_verification_after_machine_or_driver_change
+    - security_scan_after_dependency_or_policy_change
+    - release_or_production_verification_after_artifact_change
+  preferred_caches:
+    - dependency_cache
+    - build_cache
+    - model_cache
+    - test_cache_when_semantically_safe
+    - downloaded_tool_cache
+
+ci_policy:
+  local_first: true
+  github_actions_default: false
+  use_actions_when:
+    - independent_ci_evidence_is_required
+    - platform_specific_environment_is_needed
+    - release_gate_requires_it
+    - local_reproduction_is_not_practical
+  rule: "Local checks should pass before occupying the single runner unless CI itself is the subject of the task."
+
+git_policy:
+  commit_strategy: "small coherent commits at verified task/checkpoint boundaries"
+  no_force_push: true
+  preserve_unrelated_changes: true
+  avoid_commit_per_microstep: true
+  require_final_diff_review: true
+
+continuity:
+  checkpoint_after:
+    - coherent_implementation_unit
+    - expensive_successful_stage
+    - before_approval_boundary
+    - before_expected_session_end
+  persist:
+    - project_state
+    - task_status
+    - evidence
+    - blockers
+    - exact_next_action
+  rule: "A new session should resume without reconstructing completed reasoning."
+
+completion:
+  task_done_does_not_equal_project_done: true
+  final_complete_policy: "docs/FINAL_COMPLETION_CRITERIA.md"
+  final_scope: ".ai/final-scope.yaml"

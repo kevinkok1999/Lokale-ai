@@ -10,4 +10,21 @@ Thresholds are calibrated per node:
 - **hard:** admit only CONTROL-critical work;
 - **emergency reserve:** stop optional work and preserve state/diagnostics.
 
-These percentages are initial policy defaults, not claims about actual capacity. Heavy GPU concurrency starts at one and increases only after measured latency, VRAM headroom and recovery evidence. The scheduler never responds to pressure by spawning more workers.
+These percentages are initial policy defaults, not claims about actual capacity.
+
+## Concurrency defaults
+
+Until live measurement proves a higher safe value:
+
+- heavy GPU jobs: **1**;
+- GitHub Actions runner-consuming jobs: **1**;
+- Git writers per repository: **1**;
+- local CPU parallelism: adaptive after measuring host pressure.
+
+Read-only analysis and isolated lightweight checks may parallelize when they do not threaten reserves.
+
+The scheduler never responds to pressure by spawning more workers. Queueing is preferred over overcommit.
+
+## Cache/resource economy
+
+Keep reusable dependency/build/model caches when disk budgets allow, but never preserve a cache at the expense of the emergency reserve. Unload idle heavyweight model/process resources before admitting another heavy job.

@@ -8,9 +8,26 @@
 - **Release gate:** signed reproducible artifact, SBOM, upgrade/rollback and backup restore pass.
 - **Production gate:** deployment approval, health SLOs, monitoring and operator runbook accepted.
 
-## Pyramid
+## Fail-fast test ladder
 
-Schema validation → contract fixtures → unit → component → integration → E2E → hardware integration → chaos/recovery → security/supply-chain → installer/upgrade/offline. Later gates never pretend to be satisfied by earlier gates.
+Run the cheapest required evidence first:
+
+- **Tier 0 — fast static:** schema/config validation, formatting, lint, type/static analysis.
+- **Tier 1 — targeted unit:** changed-module tests and negative fixtures.
+- **Tier 2 — contract/component:** cross-boundary contracts and component behavior.
+- **Tier 3 — integration:** only integrations affected by the change.
+- **Tier 4 — E2E/hardware/release:** end-to-end, hardware, chaos/recovery, installer, signed-release and production gates.
+
+If an earlier required tier fails, fix it before spending resources on later tiers. Passing a lower tier never substitutes for a required higher tier.
+
+## Incremental evidence
+
+Reuse a prior result only when code/config/lockfiles/toolchain/environment inputs that determine it are unchanged. Invalidate:
+
+- contract evidence after schema/consumer change;
+- security evidence after dependency/policy change;
+- hardware evidence after machine/driver/runtime change;
+- release/production evidence after artifact/deployment change.
 
 ## First milestone tests
 

@@ -12,7 +12,15 @@ Read in this order:
 2. `.ai/project-state.yaml`
 3. `docs/SOURCE_OF_TRUTH.md`
 4. `docs/CODEX_HANDOFF.md`
-5. relevant architecture, security, resource, test docs and ADRs
+5. `.ai/execution-policy.yaml`
+6. current task file
+7. only the architecture, security, resource, test docs and ADRs relevant to that task
+
+## Fast Codex bootstrap
+
+When the repository is open locally, run `python scripts/codex_bootstrap.py` (or let Codex run it). It is read-only and gives Codex a compact branch/HEAD/state/task preflight so it does not have to rediscover the repository every session.
+
+Execution policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
 ## Current next task
 

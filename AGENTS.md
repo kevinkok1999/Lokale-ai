@@ -27,20 +27,15 @@ When a session finishes because of context/time limits rather than a real blocke
 
 Use repository state, not chat history, as the technical source of truth.
 
-Read in this order before substantial work:
+Use progressive disclosure. The minimum startup set is:
 
 1. `.ai/project-state.yaml`
 2. `docs/SOURCE_OF_TRUTH.md`
-3. `docs/CODEX_HANDOFF.md`
-4. `docs/FINAL_COMPLETION_CRITERIA.md`
-5. `.ai/final-scope.yaml`
-6. `docs/ARCHITECTURE.md`
-7. `docs/SECURITY.md`
-8. `docs/RESOURCE_BUDGET.md`
-9. `docs/TEST_STRATEGY.md`
-10. `docs/ACCEPTANCE_CRITERIA.md`
-11. relevant ADRs under `docs/adr/`
-12. subsystem-specific `AGENTS.md` or `AGENTS.override.md` files in the directory being changed
+3. `.ai/execution-policy.yaml`
+4. `docs/CODEX_HANDOFF.md`
+5. current task file under `.ai/tasks/`
+
+Then load only the architecture/security/resource/test/subsystem docs and ADRs that the current task actually needs. Load `.ai/final-scope.yaml` and `docs/FINAL_COMPLETION_CRITERIA.md` at milestone/final-completion decisions or whenever scope/completion is in question. Historical/superseded docs are not startup context.
 
 If repository documentation conflicts, apply the precedence rules in `docs/SOURCE_OF_TRUTH.md`. Explicitly superseded legacy material must not block a newer accepted canonical decision. If two active canonical sources still conflict, stop only the conflicting implementation path, resolve it in the canonical docs and/or an ADR, then continue.
 
@@ -48,13 +43,14 @@ If repository documentation conflicts, apply the precedence rules in `docs/SOURC
 
 At the beginning of a new Codex session:
 
-1. Inspect repository status and current branch.
-2. Read `.ai/project-state.yaml` and `docs/CODEX_HANDOFF.md`.
-3. Detect the local operating system, available developer tools, CPU/RAM, free disk space, and GPU only when relevant to the current task.
-4. Do not assume the current computer is CONTROL, COMPUTE, DEVELOPER, or FULL. Detect and recommend a role; require confirmation before privileged installation that materially changes the host.
-5. Run the repository's safe doctor/preflight command if present.
-6. Resume the highest-priority unblocked task from project state.
-7. Do not redo completed work unless verification shows it is invalid.
+1. Run the read-only fast preflight `python scripts/codex_bootstrap.py` when Python is available; otherwise perform the same checks manually.
+2. Inspect repository status, current branch, HEAD and origin.
+3. Read the minimum startup set defined above and the current task.
+4. Build a compact Task Execution Envelope using `.ai/execution-policy.yaml`.
+5. Detect only the local capabilities relevant to the current task; do not perform a full hardware inventory for a schema/docs-only task.
+6. Do not assume the current computer is CONTROL, COMPUTE, DEVELOPER, or FULL. Require confirmation before privileged installation that materially changes the host.
+7. Resume the highest-priority unblocked task. A blocked task is not a global blocker when another valid task is unblocked.
+8. Do not redo completed work when its inputs and valid evidence are unchanged.
 
 ## Architectural invariants
 
@@ -72,6 +68,14 @@ Preserve these invariants unless an approved ADR explicitly changes them:
 - Secrets must never be committed to Git.
 - Resource limits must prevent runaway CPU, RAM, VRAM, disk, or worker concurrency.
 
+## Execution efficiency
+
+Follow `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
+
+Use a logical **Controller → Assistant/Executor → Verifier** loop. Do not spawn heavyweight extra agents for trivial work merely to satisfy role names. Parallelize only genuinely independent work, keep one Git writer per repository, serialize the single GitHub Actions runner, and start with one heavy GPU job. Prefer local execution and progressive context loading.
+
+Use the fail-fast test ladder: cheap targeted checks first, expensive integration/hardware/release gates only after prerequisite tiers pass. Reuse caches/evidence only when their inputs and environment scope remain valid.
+
 ## Execution loop
 
 For every implementation task:
@@ -81,9 +85,9 @@ For every implementation task:
 3. Make the smallest coherent plan that reaches a testable result.
 4. Create or use an appropriate branch/worktree according to repository policy.
 5. Implement only the scoped change.
-6. Run formatting/linting relevant to changed code.
-7. Run targeted tests.
-8. Run broader integration/security checks when the change can affect other components.
+6. Run the cheapest relevant static/format/schema checks.
+7. Run targeted tests for changed code.
+8. Escalate through contract/component/integration/E2E/hardware/release tiers only when required and after cheaper required tiers pass.
 9. Review the final diff for accidental changes, secrets, unsafe permissions, regressions, and architecture drift.
 10. Update documentation when behavior, architecture, operations, interfaces, or installation changed.
 11. Update `.ai/project-state.yaml` with verified status, evidence, blockers, and next task.
@@ -251,4 +255,4 @@ Stop and report instead of guessing when:
 - a migration has no credible backup/rollback path
 - continuing would violate the resource or security budget
 
-Otherwise, make a safe engineering choice, document it, and continue.
+Otherwise, make a safe engineering choice, document it, and continue. Use at most two attempts with the same failed strategy before changing the hypothesis/approach.

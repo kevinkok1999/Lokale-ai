@@ -6,7 +6,7 @@ Local AI OS is a local-first personal AI operating system. The first implementat
 
 ## Canonical truth and Git status
 
-Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this handoff. The latest fully verified synchronized content commit is `cf6183981cdbf2aea696363d3a277b4066cac9a8`. A later state/receipt commit may be HEAD by design.
+Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Start with `python scripts/codex_bootstrap.py` when available, then read the minimum startup set in `AGENTS.md` and `.ai/execution-policy.yaml`. The latest fully verified synchronized content commit is `cf6183981cdbf2aea696363d3a277b4066cac9a8`. A later state/receipt commit may be HEAD by design.
 
 The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding status documents are preserved for history but are superseded for current state by `.ai/project-state.yaml`, this handoff and `docs/CODING_READY_REPORT.md`.
 
@@ -15,6 +15,14 @@ The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding sta
 Do not stop the Local AI OS project after the first vertical slice or any later milestone. A milestone may be DONE while the project remains IN_PROGRESS. Project-level `FINAL_COMPLETE` is allowed only when `.ai/final-scope.yaml` and `docs/FINAL_COMPLETION_CRITERIA.md` are fully satisfied with evidence and final user acceptance.
 
 After a task/milestone completes, select the next highest-priority unblocked work from the canonical roadmap/state and continue as far as the current session safely allows. If the session ends, persist exact continuation state. Explicitly superseded legacy docs must not override newer canonical policy.
+
+## Fast execution protocol
+
+Use `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
+
+For each task: Controller creates a minimal execution envelope → Assistant/Executor implements → Verifier reviews/tests/evidence. Use progressive context loading, fail-fast test tiers, valid caches, local-first execution and bounded retries. The single GitHub Actions runner and heavy GPU jobs are serialized by default. A blocked hardware task does not block unrelated unblocked software work.
+
+Do not burn time rerunning unchanged discovery or broad test suites when targeted prerequisite checks have already failed.
 
 ## Current gate
 

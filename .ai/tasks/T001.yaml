@@ -26,3 +26,22 @@ definition_of_done:
   - diff reviewed
   - evidence and project-state updated
   - no secrets or generated temporary artifacts committed
+
+execution_hints:
+  context_strategy: progressive_disclosure
+  initial_context:
+    - .ai/schemas/*.schema.json
+    - scripts/validate_contracts.py
+    - tests/contracts/schema_contract_test.py
+    - docs/API_CONTRACTS.md
+    - docs/EVENT_CONTRACTS.md
+  test_tiers: [0, 1, 2]
+  github_actions_required: false
+  hardware_required: false
+  heavy_gpu_required: false
+  parallelism: "read-only inspection may parallelize; one repository writer"
+  same_strategy_retry_limit: 2
+  cache_invalidation:
+    - .ai/schemas/*.schema.json
+    - scripts/validate_contracts.py
+    - tests/contracts/**

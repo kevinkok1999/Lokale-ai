@@ -7,8 +7,10 @@ Read in this order:
 1. `AGENTS.md`
 2. `.ai/project-state.yaml`
 3. this file
-4. `docs/CODEX_HANDOFF.md`
-5. current architecture/security/resource/test docs and relevant ADRs
+4. `.ai/execution-policy.yaml`
+5. `docs/CODEX_HANDOFF.md`
+6. current task file
+7. only the architecture/security/resource/test docs and ADRs required by that task
 
 Authoritative artifacts:
 
@@ -17,6 +19,7 @@ Authoritative artifacts:
 - contracts: `.ai/schemas/`
 - decisions: `docs/adr/`
 - implementation sequence: `docs/IMPLEMENTATION_BACKLOG.md`
+- execution/scheduling policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`
 - Codex continuation: `docs/CODEX_HANDOFF.md`
 - evidence: `.ai/evidence/` and `.ai/reports/`
 

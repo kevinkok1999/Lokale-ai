@@ -12,10 +12,16 @@ Local AI OS is a local-first personal AI operating system with a durable control
 
 PostgreSQL, Redis, Qdrant and NATS are candidates, not frozen dependencies. They may be introduced only after measured resource budgets and a Phase 1 need. A single-node SQLite/embedded queue is acceptable for the first vertical slice if it preserves contracts and recovery semantics.
 
+## Execution control
+
+Repository work follows a Controller → Assistant/Executor → Verifier loop governed by `.ai/execution-policy.yaml`. This execution overlay is designed to reduce context, rework and resource waste; it does not change the product runtime agent hierarchy.
+
+Scheduling is critical-path aware and work-conserving: blocked hardware work does not stop unrelated unblocked software work. One Git writer per repository, one GitHub Actions runner-consuming job and one heavy GPU job are initial safety defaults.
+
 ## Frozen invariants
 
 Deny by default, Git as transaction log, no self-approval for high-impact changes, bounded retries, idempotent commands, explicit evidence, and human approval for production, credentials, payments, deletion, public exposure or material host changes.
 
 ## Quality gate
 
-Plan → isolated workspace → change → tests → security/static checks → independent review → evidence → approval boundary → commit/push. A written architecture is not implementation evidence.
+Task envelope → smallest coherent change → fail-fast targeted checks → required broader gates → final diff/security review → evidence → approval boundary → commit/state update. A written architecture is not implementation evidence.
