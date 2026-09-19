@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 policy_id: "local-ai-os-parallel-coordination-v1"
 status: ACTIVE
 goal: "Run independent work concurrently while preserving one coherent plan, shared awareness, deterministic integration and bounded resource use."
@@ -41,6 +41,13 @@ roles:
       - report discoveries that affect another lane
       - produce a receipt with base commit, outputs, tests, evidence and residual risk
       - never silently broaden scope
+  context7_specialist:
+    responsibilities:
+      - read_context7_policy_before_external_documentation_work
+      - resolve_best_library_id_and_version_match
+      - query_one_specific_concept_at_a_time
+      - return_compact_documentation_receipt
+      - notify_controller_if_docs_change_another_lane_assumption
   verifier:
     responsibilities:
       - verify receipts against the assigned scope and checkpoint
@@ -55,6 +62,7 @@ parallelism:
     - tests_on_immutable_checkpoint
     - non_overlapping_isolated_worktrees
     - documentation_or_evidence_work_with_non_overlapping_write_sets
+    - context7_documentation_lane_parallel_with_independent_repository_analysis
   serialized:
     - writes_to_same_file_or_contract_boundary
     - canonical_project_state_update
@@ -89,6 +97,7 @@ communication:
     - residual_risk
     - recommended_next_action
   cross_lane_rule: "A discovery that changes another lane's assumptions is published to the controller before either lane integrates."
+  context7_rule: "Context7 findings that affect API/version assumptions are published before the dependent implementation lane crosses that dependency point."
 
 integration:
   owner: controller

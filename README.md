@@ -22,6 +22,8 @@ When the repository is open locally, run `python scripts/codex_bootstrap.py` (or
 
 Execution policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
+Current external technology documentation is supplied through Context7 when relevant. Policy: `.ai/context7-policy.yaml`; setup/workflow: `docs/CONTEXT7_INTEGRATION.md`.
+
 ## Current next task
 
 `T001` is **READY** and has **not been executed by this synchronization step**. Do not infer completion from the presence of schemas, scripts, tests or historical evidence files; follow the task state and Definition of Done in `.ai/tasks/T001.yaml`.

@@ -1,8 +1,8 @@
-schema_version: "1.4"
+schema_version: "1.5"
 project: local-ai-os
 phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
-architecture_version: "1.4-coordinated-parallel-execution"
+architecture_version: "1.5-context7-collaboration"
 last_updated: "2026-09-20"
 last_verified_commit: "94e2386cd850d89b92a7b814dfe05e43f368881d"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
@@ -18,6 +18,8 @@ execution:
   github_actions_runner_slots: 1
   heavy_gpu_job_slots_initial: 1
   coordination_policy: ".ai/coordination-policy.yaml"
+  context7_policy: ".ai/context7-policy.yaml"
+  context7_mode: "current_docs_specialist_on_demand"
   workboard: ".ai/workboard.json"
   coordination_check: "python scripts/coordination_check.py --json"
   parallel_awareness: "shared_blackboard_and_receipts"
@@ -45,6 +47,7 @@ completed_milestones:
   - "Project-level FINAL_COMPLETE policy and machine-readable final scope established"
   - "Controller/Assistant/Verifier execution policy and fast Codex bootstrap established"
   - "Coordinated parallel-team policy, shared workboard and lane receipts established"
+  - "Codex + Context7 current-documentation collaboration policy established"
 active_tasks:
   - id: T001
     title: "Implement canonical schemas and validation harness"

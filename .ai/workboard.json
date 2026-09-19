@@ -74,6 +74,31 @@
       },
       "checkpoint": null,
       "blocker": null
+    },
+    {
+      "lane_id": "context7-docs",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Provide current version-specific external technology documentation to active Codex lanes when required.",
+      "dependencies": [
+        "external_technology_dependency_detected"
+      ],
+      "read_set": [
+        "task envelope",
+        "dependency manifests/lockfiles",
+        "relevant configuration",
+        ".ai/context7-policy.yaml"
+      ],
+      "write_set": [
+        "Context7 receipt returned to Controller; canonical integration by Controller only"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires Context7 access in the Codex session when activated"
     }
   ],
   "merge_order": [
@@ -85,6 +110,7 @@
     "This file is shared coordination state, not proof that any lane has executed.",
     "Controller serializes canonical updates so parallel workers do not race on the blackboard.",
     "T001 remains READY; optimization work does not execute it.",
-    "Base commit refreshed to the latest verified parallel-coordination content commit."
+    "Base commit refreshed to the latest verified parallel-coordination content commit.",
+    "Context7 documentation lane is activated only for external library/framework/SDK/API/CLI/cloud-service semantics."
   ]
 }

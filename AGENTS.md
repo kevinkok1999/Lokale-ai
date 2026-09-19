@@ -46,7 +46,7 @@ At the beginning of a new Codex session:
 1. Run the read-only fast preflight `python scripts/codex_bootstrap.py` when Python is available; otherwise perform the same checks manually.
 2. Inspect repository status, current branch, HEAD and origin.
 3. Read the minimum startup set defined above and the current task.
-4. Build a compact Task Execution Envelope using `.ai/execution-policy.yaml`.
+4. Build a compact Task Execution Envelope using `.ai/execution-policy.yaml`, including whether current external documentation is required. If yes, load `.ai/context7-policy.yaml` and schedule the Context7 specialist lane.
 5. Detect only the local capabilities relevant to the current task; do not perform a full hardware inventory for a schema/docs-only task.
 6. Do not assume the current computer is CONTROL, COMPUTE, DEVELOPER, or FULL. Require confirmation before privileged installation that materially changes the host.
 7. Resume the highest-priority unblocked task. A blocked task is not a global blocker when another valid task is unblocked.
@@ -73,6 +73,8 @@ Preserve these invariants unless an approved ADR explicitly changes them:
 Follow `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
 Use a logical **Controller → Assistant/Executor → Verifier** loop. For parallel work, also follow `.ai/coordination-policy.yaml`, `.ai/workboard.json` and `docs/PARALLEL_EXECUTION.md`.
+
+When a task depends on an external library, framework, SDK, API, CLI tool or cloud service, follow `.ai/context7-policy.yaml` and `docs/CONTEXT7_INTEGRATION.md`. Context7 is the current-documentation specialist: resolve/query current version-specific docs before API-dependent implementation, then record a compact receipt. Do not use Context7 unnecessarily for pure internal logic.
 
 Parallel workers operate as one team: the Controller publishes lane scope/dependencies/resource claims; every worker reads the same workboard before starting; cross-lane discoveries are reported back to the Controller; only the Controller serializes canonical coordination/project-state integration. Do not spawn heavyweight extra agents for trivial work merely to satisfy role names. Parallelize only proven-independent work, keep one Git writer/integrator per repository, serialize the single GitHub Actions runner, and start with one heavy GPU job. Prefer local execution and progressive context loading.
 

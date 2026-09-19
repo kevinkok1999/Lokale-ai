@@ -1,5 +1,5 @@
-schema_version: "1.1"
-policy_id: "local-ai-os-execution-v1.1"
+schema_version: "1.2"
+policy_id: "local-ai-os-execution-v1.2"
 status: ACTIVE
 purpose: "Maximize verified engineering throughput while preserving safety, recoverability, canonical state and evidence."
 
@@ -62,7 +62,11 @@ task_execution_envelope:
     - cache_inputs
     - evidence_target
     - stop_conditions
+    - context7_required
+    - external_technology_versions
   rule: "Do not start broad implementation before the envelope is clear."
+  context7_policy: ".ai/context7-policy.yaml"
+  documentation_gate: "If correctness depends on current external technology semantics, schedule Context7 before crossing that dependency point."
 
 scheduling:
   priority_order:
