@@ -28,3 +28,8 @@ Added immutable-checkpoint verification, per-lane receipts, stale-base revalidat
 - deterministic integration and resource semaphores.
 
 T001 remains READY and was not executed by this optimization change.
+
+
+## Coordination validator
+
+Added `scripts/coordination_check.py` with dependency-light checks for duplicate lanes, exact running write-scope collisions, resource semaphore over-allocation and canonical-writer drift. Added harness unit tests. Bootstrap now exposes workboard epoch/mode/lane summaries directly so a new Codex session sees team state without rereading the full board first.

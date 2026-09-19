@@ -41,7 +41,7 @@ Use progressive disclosure after that. Read architecture/security/resource/test/
 
 ## Shared team awareness
 
-Parallel speed is coordinated through `.ai/coordination-policy.yaml` and `.ai/workboard.json`. The Controller partitions work into non-conflicting lanes and publishes dependencies, read/write scopes and resource claims. Every lane reads the current board before starting and reports cross-lane discoveries. Workers return receipts; the Controller serializes canonical workboard/project-state integration.
+Parallel speed is coordinated through `.ai/coordination-policy.yaml` and `.ai/workboard.json`. Before fan-out or integration, run `python scripts/coordination_check.py --json` to catch duplicate lane IDs, exact write-scope collisions and semaphore over-allocation. The Controller partitions work into non-conflicting lanes and publishes dependencies, read/write scopes and resource claims. Every lane reads the current board before starting and reports cross-lane discoveries. Workers return receipts; the Controller serializes canonical workboard/project-state integration.
 
 Verification can run against an immutable checkpoint while the implementation team works on a different non-conflicting lane. If the verified behavior changes before integration, that receipt must be revalidated.
 

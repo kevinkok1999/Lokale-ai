@@ -22,7 +22,7 @@ Use `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
 For each task: Controller creates a minimal execution envelope and, where useful, non-conflicting parallel lanes → Assistant/Executor lane(s) implement → Verifier reviews immutable checkpoints/tests/evidence → Controller integrates receipts deterministically. All lanes share `.ai/workboard.json` and follow `.ai/coordination-policy.yaml`. Use progressive context loading, fail-fast test tiers, valid caches, local-first execution and bounded retries. The single GitHub Actions runner and heavy GPU jobs are serialized by default. A blocked hardware task does not block unrelated unblocked software work.
 
-Do not burn time rerunning unchanged discovery or broad test suites when targeted prerequisite checks have already failed.
+Before parallel fan-out or integration, run `python scripts/coordination_check.py --json`. Do not burn time rerunning unchanged discovery or broad test suites when targeted prerequisite checks have already failed.
 
 ## Current gate
 

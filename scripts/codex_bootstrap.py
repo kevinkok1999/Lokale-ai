@@ -61,6 +61,11 @@ def main() -> int:
     root = git_root(pathlib.Path.cwd())
     state_path = root / ".ai/project-state.yaml"
     state_text = state_path.read_text(encoding="utf-8") if state_path.is_file() else ""
+    workboard_path = root / ".ai/workboard.json"
+    try:
+        workboard = json.loads(workboard_path.read_text(encoding="utf-8")) if workboard_path.is_file() else {}
+    except Exception:
+        workboard = {"parse_error": True}
 
     next_task = scalar(state_text, "next_task")
     task_rel = f".ai/tasks/{next_task}.yaml" if next_task else None
@@ -100,6 +105,17 @@ def main() -> int:
         "parallel_coordination": {
             "policy": ".ai/coordination-policy.yaml",
             "workboard": ".ai/workboard.json",
+            "coordination_epoch": workboard.get("coordination_epoch"),
+            "mode": workboard.get("mode"),
+            "lanes": [
+                {
+                    "lane_id": lane.get("lane_id"),
+                    "task_id": lane.get("task_id"),
+                    "state": lane.get("state"),
+                    "blocker": lane.get("blocker"),
+                }
+                for lane in workboard.get("active_lanes", [])
+            ] if isinstance(workboard.get("active_lanes", []), list) else [],
             "rule": "Read shared lane state before parallel work; Controller serializes canonical integration."
         },
         "notes": [

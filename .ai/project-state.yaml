@@ -19,6 +19,7 @@ execution:
   heavy_gpu_job_slots_initial: 1
   coordination_policy: ".ai/coordination-policy.yaml"
   workboard: ".ai/workboard.json"
+  coordination_check: "python scripts/coordination_check.py --json"
   parallel_awareness: "shared_blackboard_and_receipts"
   canonical_coordination_writer_slots: 1
   blocked_task_is_not_global_block: true

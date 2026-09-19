@@ -5,6 +5,7 @@ goal: "Run independent work concurrently while preserving one coherent plan, sha
 
 shared_blackboard:
   path: ".ai/workboard.json"
+  validation_command: "python scripts/coordination_check.py --json"
   owner: controller
   read_before_start: true
   reread_before_integration: true
