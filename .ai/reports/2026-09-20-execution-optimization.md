@@ -37,3 +37,14 @@ The process was reviewed in three passes:
 ## Verification boundary
 
 This review updates repository policy/harness only. It does not prove the new bootstrap script on the user's brother's machine, does not execute T001, and does not upgrade hardware/release/production verification.
+
+
+## Harness validation performed during policy update
+
+The new bootstrap helper was checked outside the target hardware:
+
+- Python syntax compilation: PASS.
+- Simulated clean Git repository with all canonical startup files: PASS.
+- Detected branch, HEAD, origin, project status and T001 correctly.
+- Missing-required-file behavior remains explicit via non-zero exit.
+- This is workspace-level validation only and is not CONTROL/COMPUTE hardware evidence.

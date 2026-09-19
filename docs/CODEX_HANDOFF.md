@@ -6,7 +6,7 @@ Local AI OS is a local-first personal AI operating system. The first implementat
 
 ## Canonical truth and Git status
 
-Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Start with `python scripts/codex_bootstrap.py` when available, then read the minimum startup set in `AGENTS.md` and `.ai/execution-policy.yaml`. The latest fully verified synchronized content commit is `cf6183981cdbf2aea696363d3a277b4066cac9a8`. A later state/receipt commit may be HEAD by design.
+Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Start with `python scripts/codex_bootstrap.py` when available, then read the minimum startup set in `AGENTS.md` and `.ai/execution-policy.yaml`. The latest fully verified synchronized content commit is `19b450acbb6839a3dde0b5f09876dc3e66893dda`. A later state/receipt commit may be HEAD by design.
 
 The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding status documents are preserved for history but are superseded for current state by `.ai/project-state.yaml`, this handoff and `docs/CODING_READY_REPORT.md`.
 
