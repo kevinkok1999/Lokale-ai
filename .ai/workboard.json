@@ -3,7 +3,7 @@
   "coordination_epoch": 0,
   "mode": "READY_NOT_RUNNING",
   "controller": "codex-controller",
-  "base_commit": "41b22b3095c9862ad6f947a8811fdb550017e5c4",
+  "base_commit": "94e2386cd850d89b92a7b814dfe05e43f368881d",
   "canonical_writer": "controller-only",
   "active_lanes": [
     {
@@ -84,6 +84,7 @@
   "notes": [
     "This file is shared coordination state, not proof that any lane has executed.",
     "Controller serializes canonical updates so parallel workers do not race on the blackboard.",
-    "T001 remains READY; optimization work does not execute it."
+    "T001 remains READY; optimization work does not execute it.",
+    "Base commit refreshed to the latest verified parallel-coordination content commit."
   ]
 }

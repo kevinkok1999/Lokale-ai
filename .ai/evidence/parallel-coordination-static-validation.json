@@ -1,0 +1,35 @@
+{
+  "schema_version": "v1",
+  "kind": "parallel-coordination-static-validation",
+  "verified_content_commit": "94e2386cd850d89b92a7b814dfe05e43f368881d",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "workboard_json_parse",
+      "status": "PASS"
+    },
+    {
+      "name": "lane_ids_unique",
+      "status": "PASS"
+    },
+    {
+      "name": "running_resource_semaphores",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_writer_controller_only",
+      "status": "PASS"
+    },
+    {
+      "name": "current_lane_state_preserved",
+      "status": "PASS",
+      "details": "T001 READY; T002 BLOCKED; verifier STANDBY"
+    }
+  ],
+  "limitations": [
+    "Static connector-side validation only.",
+    "Python coordination/bootstrap tests were not executed on the target Codex machine.",
+    "T001 was not executed.",
+    "No hardware/release/production verification was upgraded."
+  ]
+}
