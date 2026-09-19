@@ -6,6 +6,7 @@ from typing import Protocol
 from uuid import UUID, uuid4
 
 from psycopg.rows import dict_row
+from psycopg.types.json import Jsonb
 from psycopg_pool import AsyncConnectionPool
 
 from ai_platform_contracts import JobEnvelope, JobStatus
@@ -67,10 +68,11 @@ class PostgresJobRepository:
                 'queued',
                 %(priority)s,
                 %(requested_by)s,
-                %(required_capabilities)s::jsonb,
-                %(payload)s::jsonb,
+                %(required_capabilities)s,
+                %(payload)s,
                 %(max_attempts)s
             )
+            ON CONFLICT DO NOTHING
             RETURNING
                 id, status, job_type, priority, requested_by,
                 max_attempts, attempt_count, created_at, updated_at
@@ -81,16 +83,32 @@ class PostgresJobRepository:
             "job_type": job_type,
             "priority": envelope.goal.priority,
             "requested_by": envelope.producer,
-            "required_capabilities": envelope.model_dump_json(include={"required_capabilities"}),
-            "payload": envelope.model_dump_json(include={"payload", "goal", "resource_class"}),
+            "required_capabilities": Jsonb(envelope.required_capabilities),
+            "payload": Jsonb(_payload_from_envelope(envelope)),
             "max_attempts": envelope.max_attempts,
         }
         async with self._pool.connection() as conn:
             async with conn.cursor(row_factory=dict_row) as cur:
                 await cur.execute(query, params)
                 row = await cur.fetchone()
+                if row is None:
+                    await cur.execute(
+                        """
+                        SELECT
+                            id, status, job_type, priority, requested_by,
+                            max_attempts, attempt_count, created_at, updated_at
+                        FROM ai_control.jobs
+                        WHERE project_id IS NULL AND idempotency_key = %s
+                        """,
+                        (str(envelope.message_id),),
+                    )
+                    row = await cur.fetchone()
             await conn.commit()
-        assert row is not None
+
+        if row is None:
+            raise ConcurrentJobUpdate(
+                "idempotent create conflicted but matching job could not be loaded"
+            )
         return _record_from_row(row)
 
     async def get(self, job_id: UUID) -> JobRecord | None:
@@ -141,6 +159,10 @@ class PostgresJobRepository:
                 f"job {job_id} was not in expected state {expected.value}"
             )
         return _record_from_row(row)
+
+
+def _payload_from_envelope(envelope: JobEnvelope) -> dict[str, object]:
+    return envelope.model_dump(mode="json")
 
 
 def _record_from_row(row: dict[str, object]) -> JobRecord:

@@ -68,6 +68,10 @@ CREATE TABLE IF NOT EXISTS ai_control.jobs (
     CONSTRAINT jobs_idempotency_per_project UNIQUE(project_id, idempotency_key)
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS jobs_global_idempotency_idx
+ON ai_control.jobs(idempotency_key)
+WHERE project_id IS NULL AND idempotency_key IS NOT NULL;
+
 CREATE TABLE IF NOT EXISTS ai_control.job_dependencies (
     job_id uuid NOT NULL REFERENCES ai_control.jobs(id) ON DELETE CASCADE,
     depends_on_job_id uuid NOT NULL REFERENCES ai_control.jobs(id) ON DELETE CASCADE,
