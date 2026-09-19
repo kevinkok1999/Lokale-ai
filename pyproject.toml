@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lokale-ai-platform"
+version = "0.1.0.dev0"
+description = "Local-first two-node AI operating platform"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+  "fastapi==0.141.1",
+  "uvicorn==0.52.1",
+  "pydantic==2.13.5",
+  "redis==8.1.0",
+  "psycopg[binary,pool]==3.3.6",
+  "qdrant-client==1.19.1",
+  "httpx==0.28.1",
+  "cryptography==50.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+  "packages/contracts",
+  "services/orchestrator",
+  "services/scheduler",
+]
+addopts = "-q --strict-config --strict-markers"
+
+[tool.setuptools]
+packages = []
