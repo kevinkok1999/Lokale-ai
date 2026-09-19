@@ -31,3 +31,15 @@ Exa research on current autonomous coding-agent practice reinforced the existing
 Neon remains an optional external backend specialist and does not become a mandatory dependency of the offline-first control plane.
 
 No Neon write/destructive operation, production database change, paid resource creation, deployment, or T001 implementation was performed by this update.
+
+
+## Canonical static validation
+
+At content commit `1c39c8d65659a9258db1906d6ee68f296c2aec3f`:
+
+- shared workboard parsed successfully;
+- specialist lane IDs are unique;
+- Context7, Exa, Neon and GitHub lanes are present;
+- canonical writer remains Controller-only;
+- T001 remains READY;
+- no production/cloud mutation was introduced by this policy update.
