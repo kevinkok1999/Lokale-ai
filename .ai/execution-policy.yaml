@@ -1,5 +1,5 @@
-schema_version: "1.0"
-policy_id: "local-ai-os-execution-v1"
+schema_version: "1.1"
+policy_id: "local-ai-os-execution-v1.1"
 status: ACTIVE
 purpose: "Maximize verified engineering throughput while preserving safety, recoverability, canonical state and evidence."
 
@@ -76,6 +76,11 @@ scheduling:
   independent_read_only_work_may_parallelize: true
   isolated_worktrees_may_parallelize_when_resources_allow: true
   avoid_agent_fanout_for_small_tasks: true
+  coordination_policy: ".ai/coordination-policy.yaml"
+  shared_workboard: ".ai/workboard.json"
+  controller_serializes_canonical_coordination_updates: true
+  workers_must_publish_cross_lane_discoveries: true
+  verifier_uses_immutable_checkpoint: true
 
 resource_limits:
   github_actions_runner_slots: 1

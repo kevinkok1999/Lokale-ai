@@ -14,7 +14,9 @@ The scheduler is work-conserving but dependency-safe:
 
 A blocked task is not a global project blocker unless every path to useful work depends on it.
 
-Independent read-only work may run in parallel. Code-writing work may parallelize only in isolated worktrees with a controlled merge plan. There is one Git writer per repository by default.
+Independent read-only work may run in parallel. Code-writing work may parallelize only in isolated worktrees with a controlled merge plan and disjoint write/contract scopes. There is one canonical Git integrator per repository by default.
+
+All active lanes share `.ai/workboard.json`. Controller assigns lane scopes and dependencies; workers report receipts and cross-lane discoveries; Controller serializes canonical coordination updates. See `.ai/coordination-policy.yaml`.
 
 The project currently assumes one GitHub Actions runner slot and one heavy GPU job until measurements justify more.
 

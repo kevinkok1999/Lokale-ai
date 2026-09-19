@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "coordination_epoch": 0,
+  "mode": "READY_NOT_RUNNING",
+  "controller": "codex-controller",
+  "base_commit": "41b22b3095c9862ad6f947a8811fdb550017e5c4",
+  "canonical_writer": "controller-only",
+  "active_lanes": [
+    {
+      "lane_id": "critical-path",
+      "task_id": "T001",
+      "state": "READY",
+      "objective": "Execute the current canonical next task when Codex implementation starts.",
+      "dependencies": [],
+      "read_set": [
+        ".ai/tasks/T001.yaml",
+        ".ai/schemas/**",
+        "scripts/validate_contracts.py",
+        "tests/contracts/**"
+      ],
+      "write_set": [
+        "T001-scoped files only as required by task Definition of Done"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 1
+      },
+      "checkpoint": null,
+      "blocker": null
+    },
+    {
+      "lane_id": "hardware-calibration",
+      "task_id": "T002",
+      "state": "BLOCKED",
+      "objective": "Collect live CONTROL/COMPUTE evidence when target machines are available.",
+      "dependencies": [],
+      "read_set": [
+        ".ai/tasks/T002.yaml",
+        "scripts/doctor.ps1",
+        "scripts/doctor.sh"
+      ],
+      "write_set": [
+        "hardware evidence only when executed on target machines"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": "Requires target machine access"
+    },
+    {
+      "lane_id": "verification",
+      "task_id": null,
+      "state": "STANDBY",
+      "objective": "Independently verify immutable checkpoints/receipts without racing implementation writes.",
+      "dependencies": [
+        "checkpoint_from_active_implementation_lane"
+      ],
+      "read_set": [
+        "current diff",
+        "task acceptance criteria",
+        "relevant tests/evidence"
+      ],
+      "write_set": [
+        "verification receipt/evidence through controller integration"
+      ],
+      "resource_claims": {
+        "github_actions_runner": 0,
+        "heavy_gpu": 0,
+        "git_writer": 0
+      },
+      "checkpoint": null,
+      "blocker": null
+    }
+  ],
+  "merge_order": [
+    "critical-path",
+    "verification"
+  ],
+  "receipts": [],
+  "notes": [
+    "This file is shared coordination state, not proof that any lane has executed.",
+    "Controller serializes canonical updates so parallel workers do not race on the blackboard.",
+    "T001 remains READY; optimization work does not execute it."
+  ]
+}

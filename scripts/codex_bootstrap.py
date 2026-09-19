@@ -22,6 +22,8 @@ REQUIRED = [
     "AGENTS.md",
     ".ai/project-state.yaml",
     ".ai/execution-policy.yaml",
+    ".ai/coordination-policy.yaml",
+    ".ai/workboard.json",
     "docs/SOURCE_OF_TRUTH.md",
     "docs/CODEX_HANDOFF.md",
 ]
@@ -95,6 +97,11 @@ def main() -> int:
             for name in ("git", "python", "python3", "node", "npm", "docker")
         },
         "recommended_initial_read_set": canonical,
+        "parallel_coordination": {
+            "policy": ".ai/coordination-policy.yaml",
+            "workboard": ".ai/workboard.json",
+            "rule": "Read shared lane state before parallel work; Controller serializes canonical integration."
+        },
         "notes": [
             "Read-only fast preflight; not hardware verification.",
             "Use progressive disclosure after the initial read set.",

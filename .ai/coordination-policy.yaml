@@ -1,0 +1,122 @@
+schema_version: "1.0"
+policy_id: "local-ai-os-parallel-coordination-v1"
+status: ACTIVE
+goal: "Run independent work concurrently while preserving one coherent plan, shared awareness, deterministic integration and bounded resource use."
+
+shared_blackboard:
+  path: ".ai/workboard.json"
+  owner: controller
+  read_before_start: true
+  reread_before_integration: true
+  update_rule: "Controller serializes canonical workboard updates; workers return receipts instead of racing to edit shared coordination state."
+  contains:
+    - coordination_epoch
+    - base_commit
+    - active_lanes
+    - dependencies
+    - read_sets
+    - write_sets
+    - resource_claims
+    - checkpoints
+    - blockers
+    - receipts
+    - merge_order
+
+roles:
+  controller:
+    may_write_coordination_state: true
+    responsibilities:
+      - create coordination epoch
+      - partition work into non-conflicting lanes
+      - publish each lane objective, dependencies, read/write scope and resource claims
+      - prevent duplicate work
+      - coordinate cancellation and blocker propagation
+      - choose deterministic integration order
+      - reject stale or conflicting receipts
+  assistant_executor:
+    responsibilities:
+      - read current workboard before work
+      - stay inside assigned write scope
+      - report discoveries that affect another lane
+      - produce a receipt with base commit, outputs, tests, evidence and residual risk
+      - never silently broaden scope
+  verifier:
+    responsibilities:
+      - verify receipts against the assigned scope and checkpoint
+      - independently check changed behavior/evidence
+      - revalidate after integration when the base commit changed
+      - never approve its own high-impact authored change
+
+parallelism:
+  allowed:
+    - independent read_only_research
+    - independent static_analysis
+    - tests_on_immutable_checkpoint
+    - non_overlapping_isolated_worktrees
+    - documentation_or_evidence_work_with_non_overlapping_write_sets
+  serialized:
+    - writes_to_same_file_or_contract_boundary
+    - canonical_project_state_update
+    - canonical_workboard_update
+    - final_merge_to_main
+    - github_actions_runner_consuming_jobs
+    - heavy_gpu_jobs_until_measured_safe
+    - destructive_or_privileged_operations
+  default_rule: "Parallelize only when dependency graph and write/resource scopes prove independence."
+
+conflict_prevention:
+  require_explicit_write_set: true
+  overlapping_write_sets: "serialize_or_repartition"
+  same_contract_boundary: "serialize_unless_read_only"
+  stale_base_receipt: "rebase_or_revalidate_before_merge"
+  unexpected_scope_change: "pause_lane_notify_controller"
+  duplicate_task_detection: true
+
+communication:
+  mechanism: "shared workboard + per-lane receipts"
+  receipt_required_fields:
+    - lane_id
+    - task_id
+    - base_commit
+    - objective
+    - files_read
+    - files_changed
+    - tests_run
+    - evidence
+    - discoveries_for_other_lanes
+    - blockers
+    - residual_risk
+    - recommended_next_action
+  cross_lane_rule: "A discovery that changes another lane's assumptions is published to the controller before either lane integrates."
+
+integration:
+  owner: controller
+  order: "dependency_topological_then_low_conflict"
+  pre_merge_checks:
+    - receipt_complete
+    - base_not_stale_or_revalidated
+    - write_scope_respected
+    - required_test_tiers_pass
+    - secrets_and_policy_check_pass
+    - conflicts_resolved
+  post_merge:
+    - targeted_regression
+    - update_project_state
+    - update_workboard
+    - persist_evidence
+    - select_next_unblocked_lanes
+
+resource_semaphores:
+  github_actions_runner: 1
+  heavy_gpu: 1
+  git_main_integrator: 1
+  canonical_state_writer: 1
+  local_cpu_workers: "adaptive_after_measurement"
+
+stop_rules:
+  global_stop_only_if:
+    - no_safe_unblocked_lane_exists
+    - canonical_policy_conflict_blocks_all_useful_work
+    - required_human_approval_blocks_all_useful_work
+    - resource_or_security_boundary_blocks_all_useful_work
+  lane_local_blocker: "Block only that lane and continue other independent lanes."

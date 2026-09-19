@@ -1,8 +1,8 @@
-schema_version: "1.3"
+schema_version: "1.4"
 project: local-ai-os
 phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
-architecture_version: "1.3-execution-optimized"
+architecture_version: "1.4-coordinated-parallel-execution"
 last_updated: "2026-09-20"
 last_verified_commit: "19b450acbb6839a3dde0b5f09876dc3e66893dda"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
@@ -11,12 +11,16 @@ execution:
   policy: ".ai/execution-policy.yaml"
   guide: "docs/EXECUTION_EFFICIENCY.md"
   fast_preflight: "python scripts/codex_bootstrap.py"
-  orchestration_mode: "controller_assistant_verifier"
+  orchestration_mode: "controller_parallel_team_verifier"
   context_strategy: "progressive_disclosure"
   test_strategy: "fail_fast_tiered"
   same_strategy_retry_limit: 2
   github_actions_runner_slots: 1
   heavy_gpu_job_slots_initial: 1
+  coordination_policy: ".ai/coordination-policy.yaml"
+  workboard: ".ai/workboard.json"
+  parallel_awareness: "shared_blackboard_and_receipts"
+  canonical_coordination_writer_slots: 1
   blocked_task_is_not_global_block: true
 project_completion:
   final_status_name: "FINAL_COMPLETE"
@@ -37,7 +41,9 @@ completed_milestones:
   - "Canonical Phase-1 schema set created"
   - "Repository cleanup and source-of-truth policy completed"
   - "Latest Work handoff synchronized to canonical GitHub main"
-  - "Project-level FINAL_COMPLETE policy and machine-readable final scope established"\n  - "Controller/Assistant/Verifier execution policy and fast Codex bootstrap established"
+  - "Project-level FINAL_COMPLETE policy and machine-readable final scope established"
+  - "Controller/Assistant/Verifier execution policy and fast Codex bootstrap established"
+  - "Coordinated parallel-team policy, shared workboard and lane receipts established"
 active_tasks:
   - id: T001
     title: "Implement canonical schemas and validation harness"

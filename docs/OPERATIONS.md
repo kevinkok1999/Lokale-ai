@@ -17,7 +17,7 @@ Do not repeat full discovery for a docs/schema-only task when the relevant envir
 
 ## Execution
 
-Controller creates the task execution envelope, Assistant/Executor performs the scoped work, Verifier checks diff/tests/evidence. Use targeted checks before broad checks, valid caches before rebuilding, and local execution before consuming CI.
+Controller creates the task execution envelope and shared workboard lanes, Assistant/Executor performs scoped work, Verifier checks immutable checkpoints/diff/tests/evidence, and Controller serializes final integration. Every active lane must read the current workboard and publish discoveries that affect another lane. Use targeted checks before broad checks, valid caches before rebuilding, and local execution before consuming CI.
 
 Use status for health, repair for bounded remediation, backup before stateful changes and restore drills on a schedule.
 

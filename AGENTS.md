@@ -72,7 +72,9 @@ Preserve these invariants unless an approved ADR explicitly changes them:
 
 Follow `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
-Use a logical **Controller → Assistant/Executor → Verifier** loop. Do not spawn heavyweight extra agents for trivial work merely to satisfy role names. Parallelize only genuinely independent work, keep one Git writer per repository, serialize the single GitHub Actions runner, and start with one heavy GPU job. Prefer local execution and progressive context loading.
+Use a logical **Controller → Assistant/Executor → Verifier** loop. For parallel work, also follow `.ai/coordination-policy.yaml`, `.ai/workboard.json` and `docs/PARALLEL_EXECUTION.md`.
+
+Parallel workers operate as one team: the Controller publishes lane scope/dependencies/resource claims; every worker reads the same workboard before starting; cross-lane discoveries are reported back to the Controller; only the Controller serializes canonical coordination/project-state integration. Do not spawn heavyweight extra agents for trivial work merely to satisfy role names. Parallelize only proven-independent work, keep one Git writer/integrator per repository, serialize the single GitHub Actions runner, and start with one heavy GPU job. Prefer local execution and progressive context loading.
 
 Use the fail-fast test ladder: cheap targeted checks first, expensive integration/hardware/release gates only after prerequisite tiers pass. Reuse caches/evidence only when their inputs and environment scope remain valid.
 

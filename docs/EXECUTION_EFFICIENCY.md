@@ -39,6 +39,12 @@ Then load only the minimum canonical set:
 
 Use progressive disclosure after that. Read architecture/security/resource/test/subsystem docs and ADRs only when the current task or gate requires them. Load full final-scope/completion material at milestone/final-gate decisions rather than repeatedly injecting all of it into every implementation step.
 
+## Shared team awareness
+
+Parallel speed is coordinated through `.ai/coordination-policy.yaml` and `.ai/workboard.json`. The Controller partitions work into non-conflicting lanes and publishes dependencies, read/write scopes and resource claims. Every lane reads the current board before starting and reports cross-lane discoveries. Workers return receipts; the Controller serializes canonical workboard/project-state integration.
+
+Verification can run against an immutable checkpoint while the implementation team works on a different non-conflicting lane. If the verified behavior changes before integration, that receipt must be revalidated.
+
 ## Scheduling and parallelism
 
 A blocked task must not freeze unrelated unblocked work.
