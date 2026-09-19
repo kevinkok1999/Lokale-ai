@@ -31,15 +31,15 @@ Scoring is evidence-based. Design score measures the quality of the documented d
 
 # After-improvement scorecard
 
-Scores below are after the repository/doc/schema improvements in commit `77a4a1e` plus the state/handoff update commit that follows. They measure this pre-implementation phase; no hardware or production claim is implied.
+Scores below are after the repository/doc/schema improvements from the 2026-09-19 Work improvement run. They measure this pre-implementation phase; no hardware or production claim is implied.
 
 | Category | Before | After design | After verification | Evidence / remaining gap |
 |---|---:|---:|---:|---|
 | Product Vision Completeness | 8.5 | 9.5 | 4.5 | Full capability constitution and media map; future implementations pending |
 | Architecture Quality | 8.0 | 8.8 | 4.0 | Boundaries and technology trade-offs recorded; no running slice |
-| Architecture Consistency | 6.5 | 8.8 | 4.0 | Source-of-truth policy, ADRs and gates; remote parity pending |
-| Repository / Source-of-Truth | 6.0 | 9.0 | 6.0 | Clean Git repo, canonical files, history; GitHub sync unverified |
-| Codex Readiness | 7.0 | 9.2 | 6.0 | Executable T001 and handoff; Codex simulation is document-based |
+| Architecture Consistency | 6.5 | 8.8 | 4.0 | Source-of-truth policy, ADRs and gates |
+| Repository / Source-of-Truth | 6.0 | 9.0 | 6.0 | Clean canonical files and history; remote parity was pending at scoring time |
+| Codex Readiness | 7.0 | 9.2 | 6.0 | Executable T001 definition and handoff; Codex implementation not started |
 | Task / Agent Architecture | 7.5 | 8.5 | 3.0 | Bounded first roles and future factory; runtime absent |
 | Cross-Language Contracts | 4.5 | 9.0 | 6.0 | 12 closed schemas and tests; generated multi-language consumer pending |
 | Data / Memory Architecture | 6.5 | 7.5 | 2.5 | Clear canonical/projection rule; persistence unimplemented |
@@ -49,11 +49,15 @@ Scores below are after the repository/doc/schema improvements in commit `77a4a1e
 | Reliability / Self-Healing | 7.0 | 8.2 | 2.0 | Failure matrix and bounded recovery; no chaos evidence |
 | Offline-First Capability | 7.0 | 8.0 | 2.0 | Policy is explicit; offline execution unverified |
 | Observability / Auditability | 7.0 | 8.2 | 2.5 | Correlation model and OTel direction; telemetry absent |
-| Testing / Evidence | 5.5 | 8.5 | 6.0 | T001 tests/evidence pass; broader pyramid pending |
+| Testing / Evidence | 5.5 | 8.5 | 6.0 | Work-side schema tests/evidence; broader pyramid pending |
 | Installer / Upgrade / Recovery UX | 6.5 | 8.2 | 2.0 | Product path and release gates; installer absent |
-| Git / CI / One-Runner Efficiency | 7.5 | 8.8 | 4.0 | Capacity-one policy; remote/runner execution unverified |
+| Git / CI / One-Runner Efficiency | 7.5 | 8.8 | 4.0 | Capacity-one policy; remote sync was pending at scoring time |
 | Maintainability | 7.0 | 8.8 | 5.0 | ADR/docs/schema convention; implementation maintenance pending |
 | Extensibility / Future Readiness | 8.0 | 9.2 | 3.5 | Capability map and adapters; extension contracts not all implemented |
-| Overall System Engineering Quality | 6.9 | 8.7 | 3.8 | Strong foundation; implementation and hardware are intentionally pending |
+| Overall System Engineering Quality | 6.9 | 8.7 | 3.8 | Strong foundation; implementation and hardware intentionally pending |
 
-**After weighted total: 6.7/10** (design 8.7 × 0.6 + verification 3.8 × 0.4 = 6.74). This is a substantial foundation improvement, not a finished-product score. No category receives 10/10 because the relevant implementation or hardware evidence does not exist yet.
+**After weighted total recorded by Work: 6.7/10.**
+
+## GitHub synchronization addendum — 2026-09-20
+
+The remote-parity gap noted above is now resolved for the canonical Work handoff: the synchronized content is present on `kevinkok1999/Lokale-ai` `main` through commit `5377e75d9ca0f5dbe1c78bf4b102cde322e330d5`. T001 was not executed by this sync. No new overall numeric score is assigned here because synchronization improves source-of-truth verification but adds no implementation or hardware evidence.

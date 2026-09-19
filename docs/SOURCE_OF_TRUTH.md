@@ -1,6 +1,14 @@
 # Canonical source-of-truth
 
-The canonical technical truth is the checked-out Git repository at the commit named by `.ai/project-state.yaml`. Read in this order: `AGENTS.md`, `.ai/project-state.yaml`, this file, `docs/CODEX_HANDOFF.md`, then the architecture/security/resource/test docs and ADRs.
+The canonical remote source for Local AI OS is the `main` branch of `kevinkok1999/Lokale-ai`. A fresh clone of that branch is the supported handoff starting point for Codex.
+
+Read in this order:
+
+1. `AGENTS.md`
+2. `.ai/project-state.yaml`
+3. this file
+4. `docs/CODEX_HANDOFF.md`
+5. current architecture/security/resource/test docs and relevant ADRs
 
 Authoritative artifacts:
 
@@ -12,4 +20,6 @@ Authoritative artifacts:
 - Codex continuation: `docs/CODEX_HANDOFF.md`
 - evidence: `.ai/evidence/` and `.ai/reports/`
 
-The earlier starter ZIP and any copied historical status are superseded by this repository and are not part of the active source. Historical decisions remain in ADRs/reports. A remote GitHub mirror must be verified separately; this checkout is the canonical working repository until a matching remote commit is confirmed.
+`last_verified_commit` in `.ai/project-state.yaml` points to the latest fully verified content commit. The repository HEAD may be one later state/receipt commit so the state file does not need to refer to its own commit hash.
+
+The Work-to-GitHub synchronization was verified on 2026-09-20. The earlier ZIP/starter copies and the legacy pre-coding documents listed in `docs/LEGACY_PRECODING_DOCS.md` are not authoritative for current status.

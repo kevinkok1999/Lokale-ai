@@ -4,9 +4,11 @@
 
 Local AI OS is a local-first personal AI operating system. The first implementation milestone is a reliable vertical slice: User → Gateway → Master → Task DAG → isolated Coder workspace → Tester → independent Reviewer → Git diff/evidence report → human approval boundary. The long-term capability map is in `docs/PRODUCT_CONSTITUTION.md`; it includes ProjectForge, ToolForge, KnowledgeMesh, model/resource routing, media, Zero-Deploy, AgentFactory, multi-user, shadow mode and controlled self-improvement.
 
-## Canonical truth and current commit
+## Canonical truth and Git status
 
-Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this handoff. The latest verified repository commit is `ac9ef13`; the state update commit that follows it is intentionally tracked separately. The active repository is canonical. The removed starter ZIP and copied historical files are superseded. GitHub synchronization is unverified in this checkout and must not be claimed.
+Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this handoff. The latest fully verified synchronized content commit is `5377e75d9ca0f5dbe1c78bf4b102cde322e330d5`. A later state/receipt commit may be HEAD by design.
+
+The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding status documents are preserved for history but are superseded for current state by `.ai/project-state.yaml`, this handoff and `docs/CODING_READY_REPORT.md`.
 
 ## Current gate
 
@@ -14,16 +16,9 @@ Read `AGENTS.md`, `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, then this
 
 ## First task — T001
 
-Implement the contract validation harness described in `.ai/tasks/T001.yaml`.
+T001 remains `READY`. The GitHub synchronization did **not** execute T001, did **not** start a Codex loop and did **not** mark T001 complete.
 
-Run:
-
-```bash
-python3 scripts/validate_contracts.py
-python3 -m unittest discover -s tests/contracts -p '*_test.py'
-```
-
-Do not invent a second schema source. Do not start PostgreSQL, Redis, Qdrant, NATS, Temporal or model services for T001. Keep the change isolated and update evidence/state after review.
+When Codex implementation begins, follow `.ai/tasks/T001.yaml` and run its commands in the target development environment. Do not invent a second schema source. Do not start PostgreSQL, Redis, Qdrant, NATS, Temporal or model services for T001.
 
 ## Next sequence
 
