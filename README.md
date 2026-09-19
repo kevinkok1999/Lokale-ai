@@ -26,6 +26,10 @@ Local AI OS is a local-first AI operating system intended to coordinate a Master
 
 Older pre-coding freeze documents remain in `docs/` for history. Their status language is superseded by `.ai/project-state.yaml`, `docs/SOURCE_OF_TRUTH.md`, `docs/CODING_READY_REPORT.md` and `docs/CODEX_HANDOFF.md`. See `docs/LEGACY_PRECODING_DOCS.md`.
 
+## Final project boundary
+
+A working core or stable partial release is not the end state. Tasks and milestones can be DONE while the overall project remains non-final. The project can only become `FINAL_COMPLETE` after all required capabilities in `.ai/final-scope.yaml` and all gates in `docs/FINAL_COMPLETION_CRITERIA.md` have verified evidence and the user accepts the final system.
+
 ## Safety boundary
 
 `READY_FOR_CODEX_IMPLEMENTATION` means the repository is ready for Codex to begin the implementation phase. It does **not** mean `HARDWARE_VERIFIED`, `STABLE_RELEASE` or `PRODUCTION_VERIFIED`.

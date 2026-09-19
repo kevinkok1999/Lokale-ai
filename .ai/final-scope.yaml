@@ -1,0 +1,90 @@
+schema_version: "1.0"
+project: local-ai-os
+policy: "All required capabilities must be implemented, integrated and verified before project FINAL_COMPLETE."
+allow_silent_scope_reduction: false
+final_status: "FINAL_COMPLETE"
+capabilities:
+  - id: master_ai
+    required: true
+    status: PENDING
+  - id: engineering_core
+    required: true
+    status: PENDING
+  - id: projectforge
+    required: true
+    status: PENDING
+  - id: website_app_factory
+    required: true
+    status: PENDING
+  - id: toolforge
+    required: true
+    status: PENDING
+  - id: knowledgemesh
+    required: true
+    status: PENDING
+  - id: memory_system
+    required: true
+    status: PENDING
+  - id: model_routing
+    required: true
+    status: PENDING
+  - id: resource_routing
+    required: true
+    status: PENDING
+  - id: control_compute_cluster
+    required: true
+    status: PENDING
+  - id: agentfactory
+    required: true
+    status: PENDING
+  - id: media_pipeline
+    required: true
+    status: PENDING
+  - id: zerodeploy
+    required: true
+    status: PENDING
+  - id: multi_user
+    required: true
+    status: PENDING
+  - id: offline_first
+    required: true
+    status: PENDING
+  - id: self_healing
+    required: true
+    status: PENDING
+  - id: installer_upgrade_repair_rollback_uninstall
+    required: true
+    status: PENDING
+  - id: observability_audit
+    required: true
+    status: PENDING
+  - id: security_pairing_permissions
+    required: true
+    status: PENDING
+  - id: shadow_mode
+    required: true
+    status: PENDING
+  - id: controlled_self_improvement
+    required: true
+    status: PENDING
+  - id: digital_twin_simulation
+    required: true
+    status: PENDING
+  - id: full_system_ux
+    required: true
+    status: PENDING
+final_gates:
+  architecture_consistency: PENDING
+  implementation_complete: PENDING
+  contract_verification: PENDING
+  e2e_verification: PENDING
+  hardware_verification: PENDING
+  offline_verification: PENDING
+  security_verification: PENDING
+  recovery_chaos_verification: PENDING
+  installer_lifecycle_verification: PENDING
+  performance_resource_verification: PENDING
+  benchmark_quality_verification: PENDING
+  supply_chain_release_verification: PENDING
+  production_verification: PENDING
+  user_final_acceptance: PENDING

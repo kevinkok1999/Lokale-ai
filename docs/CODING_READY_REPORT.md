@@ -21,3 +21,8 @@ This project is **not** `PRODUCTION_VERIFIED`, `HARDWARE_VERIFIED` or `STABLE_RE
 ## Next action
 
 The next implementation task remains `T001`, status `READY`. Start it only when Codex is intentionally launched for the implementation phase.
+
+
+## Long-term completion boundary
+
+`READY_FOR_CODEX_IMPLEMENTATION` authorizes the start of the implementation journey only. It must never be interpreted as “the project is nearly finished.” Project-level completion is controlled by `.ai/final-scope.yaml` and `docs/FINAL_COMPLETION_CRITERIA.md`. Individual milestones may be completed while the Local AI OS remains non-final.

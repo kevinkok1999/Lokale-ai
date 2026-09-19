@@ -28,6 +28,17 @@ Priority is reliability, safety, recoverability, simplicity, observability, perf
 
 These capabilities are extension contracts and roadmap targets. The first reliable core is Master → Coder → Tester → Reviewer; future scope must not force premature infrastructure.
 
+## Ultimate-system commitment
+
+The capability map above is part of the required ultimate system, not merely an optional wish list, unless the user later makes an explicit canonical scope change. The implementation may be staged, but staging must not silently remove end-state commitments.
+
+The project therefore has two levels of completion:
+
+- **task/milestone completion:** a bounded part works and is evidenced;
+- **project FINAL_COMPLETE:** the entire required final scope is implemented, integrated and verified according to `.ai/final-scope.yaml` and `docs/FINAL_COMPLETION_CRITERIA.md`.
+
+The project must not be labeled finally complete just because the first AI core, first production release, first installer or first media workflow works. Those are milestones on the way to the ultimate system.
+
 ## Non-negotiable engineering rules
 
 Deny by default, least privilege, untrusted input isolation, no secrets in Git or logs, Git as transaction/audit layer, deterministic scripts where reasoning adds no value, schema-first cross-language contracts, bounded retries, idempotency, immutable artifacts, evidence-linked decisions, and no self-approval for high-impact changes.

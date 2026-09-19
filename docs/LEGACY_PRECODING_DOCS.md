@@ -24,3 +24,8 @@ Current authority order:
 5. current architecture/security/resource/test docs and ADRs
 
 Historical documents must not override the current project state.
+
+
+## Non-blocking rule
+
+Legacy material is evidence/history only. It may inform a decision, but it cannot override or block a newer explicit canonical rule, accepted superseding ADR, current task state, final-scope requirement or completion policy. Preserve history; do not resurrect obsolete constraints.

@@ -10,6 +10,12 @@ Use `kevinkok1999/Lokale-ai` `main` as the canonical remote. Read `AGENTS.md`, `
 
 The Work handoff was synchronized to GitHub on 2026-09-20. Legacy pre-coding status documents are preserved for history but are superseded for current state by `.ai/project-state.yaml`, this handoff and `docs/CODING_READY_REPORT.md`.
 
+## Project completion rule
+
+Do not stop the Local AI OS project after the first vertical slice or any later milestone. A milestone may be DONE while the project remains IN_PROGRESS. Project-level `FINAL_COMPLETE` is allowed only when `.ai/final-scope.yaml` and `docs/FINAL_COMPLETION_CRITERIA.md` are fully satisfied with evidence and final user acceptance.
+
+After a task/milestone completes, select the next highest-priority unblocked work from the canonical roadmap/state and continue as far as the current session safely allows. If the session ends, persist exact continuation state. Explicitly superseded legacy docs must not override newer canonical policy.
+
 ## Current gate
 
 `READY_FOR_CODEX_IMPLEMENTATION` means architecture, repository harness, contracts and first task are ready for implementation. It does not mean hardware verified, production complete or stable-release ready. Hardware, offline/recovery, signed artifact, upgrade/rollback and production gates remain pending.

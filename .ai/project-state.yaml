@@ -1,12 +1,23 @@
-schema_version: "1.1"
+schema_version: "1.2"
 project: local-ai-os
 phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
-architecture_version: "1.1-freeze-candidate"
+architecture_version: "1.2-final-scope-policy"
 last_updated: "2026-09-20"
 last_verified_commit: "5377e75d9ca0f5dbe1c78bf4b102cde322e330d5"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
 current_milestone: "Contract-first first vertical slice"
+project_completion:
+  final_status_name: "FINAL_COMPLETE"
+  eligibility: "NOT_ELIGIBLE"
+  policy_document: "docs/FINAL_COMPLETION_CRITERIA.md"
+  final_scope_manifest: ".ai/final-scope.yaml"
+  task_done_is_not_project_done: true
+  milestone_done_is_not_project_done: true
+  require_user_final_acceptance: true
+  require_measured_benchmark_evidence: true
+  legacy_docs_may_block_current_work: false
+  note: "The project remains non-final until every required final-scope capability and mandatory verification gate is evidenced."
 completed_milestones:
   - "Product vision reconstructed"
   - "Critical audit completed"
@@ -15,6 +26,7 @@ completed_milestones:
   - "Canonical Phase-1 schema set created"
   - "Repository cleanup and source-of-truth policy completed"
   - "Latest Work handoff synchronized to canonical GitHub main"
+  - "Project-level FINAL_COMPLETE policy and machine-readable final scope established"
 active_tasks:
   - id: T001
     title: "Implement canonical schemas and validation harness"

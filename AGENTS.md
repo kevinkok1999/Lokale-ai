@@ -10,6 +10,19 @@ The platform must prioritize, in this order: reliability, safety, recoverability
 
 Do not optimize for “maximum autonomy” at the cost of control or stability.
 
+## Project-level completion policy
+
+Task completion, milestone completion, release readiness and project completion are different states.
+
+- Individual tasks and milestones may be marked DONE when their own evidence-based Definition of Done is satisfied.
+- The Local AI OS project itself must remain not-final while any required capability or mandatory verification in `.ai/final-scope.yaml` or `docs/FINAL_COMPLETION_CRITERIA.md` is incomplete.
+- The project status `FINAL_COMPLETE` may be set only when every required final-scope capability is implemented and integrated, all mandatory final gates pass with evidence, no unresolved critical blocker remains, the benchmark/quality targets are satisfied, and the user explicitly accepts the final system.
+- A first vertical slice, MVP, beta, stable subsystem or production-capable partial release is a milestone, never the final project.
+- Do not drop, hide or relabel a required capability merely to reach `FINAL_COMPLETE`.
+- “Best system” is an engineering target, not an unsupported absolute claim. Compare against the repository benchmark suite and current reference baselines; report measured evidence and uncertainty.
+
+When a session finishes because of context/time limits rather than a real blocker, leave the repository in a resumable state and identify the next unblocked task. Do not treat session end as project completion.
+
 ## Source of truth
 
 Use repository state, not chat history, as the technical source of truth.
@@ -19,15 +32,17 @@ Read in this order before substantial work:
 1. `.ai/project-state.yaml`
 2. `docs/SOURCE_OF_TRUTH.md`
 3. `docs/CODEX_HANDOFF.md`
-4. `docs/ARCHITECTURE.md`
-5. `docs/SECURITY.md`
-6. `docs/RESOURCE_BUDGET.md`
-7. `docs/TEST_STRATEGY.md`
-8. `docs/ACCEPTANCE_CRITERIA.md`
-9. relevant ADRs under `docs/adr/`
-10. subsystem-specific `AGENTS.md` or `AGENTS.override.md` files in the directory being changed
+4. `docs/FINAL_COMPLETION_CRITERIA.md`
+5. `.ai/final-scope.yaml`
+6. `docs/ARCHITECTURE.md`
+7. `docs/SECURITY.md`
+8. `docs/RESOURCE_BUDGET.md`
+9. `docs/TEST_STRATEGY.md`
+10. `docs/ACCEPTANCE_CRITERIA.md`
+11. relevant ADRs under `docs/adr/`
+12. subsystem-specific `AGENTS.md` or `AGENTS.override.md` files in the directory being changed
 
-If repository documentation conflicts, stop the conflicting implementation path, identify the conflict, and resolve it by updating the canonical docs and/or writing an ADR before proceeding.
+If repository documentation conflicts, apply the precedence rules in `docs/SOURCE_OF_TRUTH.md`. Explicitly superseded legacy material must not block a newer accepted canonical decision. If two active canonical sources still conflict, stop only the conflicting implementation path, resolve it in the canonical docs and/or an ADR, then continue.
 
 ## Startup protocol
 
@@ -204,7 +219,7 @@ The first required working chain is:
 
 User → Master → task decomposition → Coder → isolated workspace → Tester → Reviewer → Git diff → final report → human approval.
 
-Only after this is repeatable should the platform expand toward persistent memory, event fabric, runner fabric, advanced resource routing, ProjectForge, ZeroDeploy, digital twins, and self-improvement.
+Only after this is repeatable should the platform expand toward the remaining required final-scope capabilities. The first vertical milestone is the start of implementation, not the stopping point. Continue through the canonical roadmap until the final completion gate is actually satisfied or a real approval/blocker boundary is reached.
 
 ## Definition of done for a task
 
@@ -219,6 +234,10 @@ A task is DONE only when:
 - project state is updated
 - evidence is recorded
 - required approval has been obtained, or the work stopped at the approval gate
+
+## Project Definition of Final Complete
+
+The project-level final Definition of Done is exclusively defined by `docs/FINAL_COMPLETION_CRITERIA.md` and `.ai/final-scope.yaml`. A task-level DONE must never be promoted into project-level FINAL_COMPLETE without satisfying those files.
 
 ## Stop conditions
 
