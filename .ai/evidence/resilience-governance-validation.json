@@ -1,0 +1,51 @@
+{
+  "schema_version": "v1",
+  "kind": "resilience-governance-validation",
+  "verified_content_commit": "0ce1fa21e9a1b40294700a1a7f466b7c848dc3d3",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "blocked_lane_rule",
+      "status": "PASS"
+    },
+    {
+      "name": "one_runner",
+      "status": "PASS"
+    },
+    {
+      "name": "remote_queue_declared",
+      "status": "PASS"
+    },
+    {
+      "name": "core_principle",
+      "status": "PASS"
+    },
+    {
+      "name": "github_local_progress",
+      "status": "PASS"
+    },
+    {
+      "name": "github_coding_worker_optional",
+      "status": "PASS"
+    },
+    {
+      "name": "no_force_push_recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "github_router_role_repaired",
+      "status": "PASS"
+    },
+    {
+      "name": "canva_router_role_repaired",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "Static repository governance validation only.",
+    "Durable remote-sync queue runtime is not yet implemented.",
+    "CONTROL/COMPUTE failover is not yet hardware-verified.",
+    "GitHub outage recovery has not yet been E2E chaos-tested.",
+    "T001 was not executed by this update."
+  ]
+}
