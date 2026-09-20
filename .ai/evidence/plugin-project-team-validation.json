@@ -1,0 +1,34 @@
+{
+  "schema_version": "v1",
+  "kind": "plugin-project-team-validation",
+  "verified_content_commit": "ec1f4ec4dc1f995647f6717dd506dd1e33b2c6d9",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "core_plugin_registry",
+      "status": "PASS"
+    },
+    {
+      "name": "required_workboard_lanes",
+      "status": "PASS"
+    },
+    {
+      "name": "lane_ids_unique",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_writer_controller_only",
+      "status": "PASS"
+    },
+    {
+      "name": "single_runner_queue",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "Static canonical validation only.",
+    "Local Codex plugin/MCP connectivity must be checked in the actual Codex environment.",
+    "Suggested Mixpanel, Airtable and monday.com plugins are not assumed installed until user action/connection succeeds.",
+    "T001 was not executed."
+  ]
+}
