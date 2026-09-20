@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "coordination_epoch": 0,
   "mode": "READY_NOT_RUNNING",
   "controller": "codex-controller",
@@ -259,7 +259,8 @@
     "Base commit refreshed to the latest verified parallel-coordination content commit.",
     "Context7 documentation lane is activated only for external library/framework/SDK/API/CLI/cloud-service semantics.",
     "Context7, Exa, Neon and GitHub remain available throughout the project but are activated selectively by the specialist router.",
-    "Plugin project team shares one workboard; single-runner queue only serializes runner-consuming CI, not unrelated specialist lanes."
+    "Plugin project team shares one workboard; single-runner queue only serializes runner-consuming CI, not unrelated specialist lanes.",
+    "GitHub, runner and plugin outages are lane-local failure domains; Controller recomputes runnable work rather than globally stopping."
   ],
   "runner_queue": {
     "slots": 1,
@@ -273,5 +274,28 @@
     "discoveries": [],
     "controller_broadcasts": [],
     "rule": "Active lanes publish assumption-changing discoveries through Controller before dependent integration."
+  },
+  "resilience": {
+    "policy": ".ai/resilience-policy.yaml",
+    "project_rule": "blocked_lane_is_not_blocked_project",
+    "scheduler_recompute_on_failure": true,
+    "github": {
+      "service_state": "UNKNOWN",
+      "verify_at_startup": true,
+      "outage_mode": "LOCAL_FIRST_DEGRADED",
+      "remote_dependent_evidence": "PENDING_WHILE_UNAVAILABLE"
+    },
+    "actions_runner": {
+      "service_state": "UNKNOWN",
+      "slots": 1,
+      "verify_at_startup": true,
+      "outage_mode": "QUEUE_RUNNER_JOBS_CONTINUE_NON_RUNNER_WORK"
+    }
+  },
+  "remote_sync_queue": {
+    "state": "IDLE",
+    "durable_backend": "NOT_IMPLEMENTED_YET",
+    "pending_operations": [],
+    "rule": "When GitHub is unavailable, preserve local checkpoints and queue remote intent; reconcile remote before executing queued operations."
   }
 }

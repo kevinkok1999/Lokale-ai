@@ -22,7 +22,7 @@ When the repository is open locally, run `python scripts/codex_bootstrap.py` (or
 
 Execution policy: `.ai/execution-policy.yaml` and `docs/EXECUTION_EFFICIENCY.md`.
 
-Plugin project team: Context7 + Exa + Neon + GitHub + Vercel + Figma + Canva, coordinated by `.ai/plugin-team.yaml`, `.ai/plugin-registry.yaml` and `.ai/specialist-router.yaml`. See `docs/PLUGIN_PROJECT_TEAM.md` and `docs/SPECIALIST_TOOLCHAIN.md`.
+Plugin project team: Context7 + Exa + Neon + GitHub + Vercel + Figma + Canva, coordinated by `.ai/plugin-team.yaml`, `.ai/plugin-registry.yaml` and `.ai/specialist-router.yaml`. Resilience/degraded-mode policy: `.ai/resilience-policy.yaml`. GitHub, the single Actions runner or one plugin going down must block only dependent lanes, not the whole project.
 
 ## Current next task
 

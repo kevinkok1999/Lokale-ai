@@ -1,5 +1,5 @@
-schema_version: "1.0"
-policy_id: "local-ai-os-github-v1"
+schema_version: "1.1"
+policy_id: "local-ai-os-github-v1.1"
 status: ACTIVE
 purpose: "Use GitHub as canonical remote, collaboration and independent evidence surface while keeping execution local-first and the single Actions runner efficient."
 
@@ -48,3 +48,21 @@ availability:
   github_unavailable_does_not_stop_safe_local_work: true
   queue_remote_sync_until_connection_returns: true
   remote_merge_or_ci_claim_requires_live_github_evidence: true
+
+degraded_mode:
+  policy: ".ai/resilience-policy.yaml"
+  github_is_not_single_point_of_failure: true
+  coding_worker_is_optional_capacity: true
+  on_remote_unavailable:
+    - continue_local_git_work
+    - continue_local_tests_and_review
+    - queue_remote_operations
+    - keep_remote_dependent_gates_pending
+  on_runner_unavailable:
+    - queue_runner_jobs
+    - continue_non_runner_lanes
+  recovery:
+    - fetch_and_compare_before_push
+    - reconcile_divergence_without_force_push
+    - revalidate_when_base_changed
+    - flush_remote_queue_in_dependency_order

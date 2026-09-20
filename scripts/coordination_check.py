@@ -14,7 +14,7 @@ import sys
 from collections import Counter
 
 ACTIVE = {"RUNNING"}
-KNOWN = {"READY", "PLANNED", "RUNNING", "VERIFYING", "STANDBY", "BLOCKED", "DONE", "CANCELLED"}
+KNOWN = {"READY", "PLANNED", "RUNNING", "VERIFYING", "STANDBY", "WAITING_EXTERNAL", "PAUSED", "BLOCKED", "DONE", "CANCELLED"}
 LIMITS = {"github_actions_runner": 1, "heavy_gpu": 1, "git_writer": 1}
 
 def git_root(start: pathlib.Path) -> pathlib.Path:
@@ -131,7 +131,8 @@ def main() -> int:
         "notes": [
             "Exact write-scope collisions are machine-checked.",
             "Semantic contract overlap still requires Controller review.",
-            "This check does not execute any project task."
+            "This check does not execute any project task.",
+            "WAITING_EXTERNAL/PAUSED lanes do not block unrelated runnable lanes."
         ],
     }
 

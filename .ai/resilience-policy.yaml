@@ -1,0 +1,176 @@
+schema_version: "1.0"
+policy_id: "local-ai-os-resilience-v1"
+status: ACTIVE
+purpose: "Keep useful project work progressing when GitHub, a plugin, the single Actions runner, network access, or another external dependency is degraded or unavailable."
+
+core_principles:
+  - "A blocked lane is not a blocked project."
+  - "An unavailable external service is not a project-wide stop unless every remaining useful lane depends on it."
+  - "Local verified work may continue without GitHub, but remote-dependent claims remain pending."
+  - "Never fabricate remote, CI, deployment, database, documentation, or research evidence."
+  - "Recover by reconciliation, never by silently overwriting divergent state."
+
+failure_domains:
+  github_remote:
+    on_unavailable:
+      - continue_local_git_branches_and_worktrees
+      - continue_local_implementation_tests_review_and_docs
+      - queue_remote_sync_operations
+      - mark_remote_ci_pr_merge_release_evidence_pending
+    forbidden:
+      - claim_remote_ci_passed
+      - claim_remote_merge_completed
+      - claim_release_published
+      - force_push_to_recover
+    recovery:
+      - verify_remote_reachability
+      - fetch_remote_state
+      - compare_local_and_remote_heads
+      - reconcile_divergence_without_history_rewrite
+      - rerun_required_regression_checks_if_base_changed
+      - flush_remote_sync_queue_in_dependency_order
+      - resume_remote_ci_or_review
+
+  github_actions_runner:
+    on_busy:
+      - queue_runner_consuming_job
+      - continue_non_runner_lanes
+    on_stuck_or_unavailable:
+      - capture_workflow_or_runner_evidence_if_reachable
+      - cancel_only_if_safe_and_supported
+      - keep_required_remote_ci_gate_pending
+      - continue_local_checks_and_other_unblocked_tasks
+      - avoid_duplicate_equivalent_runs
+    recovery:
+      - verify_runner_health
+      - select_minimum_required_queued_job
+      - rerun_only_required_scope
+      - attach_live_ci_evidence_before_upgrading_verification
+
+  github_coding_worker:
+    on_unavailable:
+      - return_task_to_controller
+      - reassign_to_codex_or_another_safe_local_executor_if_write_scope_allows
+      - preserve_original_acceptance_criteria_and_receipts
+    rule: "GitHub coding assistance is optional capacity, never a critical-path singleton."
+
+  plugin_or_mcp:
+    on_unavailable:
+      - block_only_tasks_that_require_that_exact_capability
+      - select_next_highest_priority_unblocked_lane
+    examples:
+      context7: "Pause only version-specific external API work that cannot be verified otherwise."
+      exa: "Pause only research conclusions that require fresh broad web evidence."
+      neon: "Pause only Neon-dependent backend evidence or operations."
+      vercel: "Pause only preview/deployment/runtime evidence that requires Vercel."
+      figma: "Pause only design work that requires Figma."
+      canva: "Pause only media/design work that requires Canva."
+
+  internet:
+    on_unavailable:
+      - continue_offline_first_repository_work
+      - continue_local_git
+      - continue_local_tests
+      - continue_local_models_when_available
+      - queue_external_operations
+    rule: "Internet loss lowers available capabilities but does not invalidate local work already proven locally."
+
+  compute_node:
+    on_unavailable:
+      - keep_control_state_durable_when_control_exists
+      - queue_or_pause_heavy_compute_jobs
+      - continue_control_plane_and_lightweight_work
+    recovery:
+      - reauthenticate_node
+      - redetect_resources
+      - verify_checkpoint
+      - resume_queued_jobs
+
+  control_node:
+    target_behavior:
+      - persist_state_frequently
+      - allow_developer_machine_to_continue_isolated_safe_repository_work
+      - reconcile_with_control_state_after_recovery
+    note: "Full CONTROL failover is a required future capability, not currently proven."
+
+scheduler:
+  rule: "After any lane/service failure, recompute runnable lanes from dependencies, approvals, service requirements and resource semaphores."
+  next_action_order:
+    - highest_priority_unblocked_critical_path
+    - release_or_security_blocker_that_is_locally_actionable
+    - highest_value_independent_unblocked_work
+    - research_documentation_or_test_hardening
+    - cleanup_only_if_no_higher_value_lane_exists
+  global_stop_only_if:
+    - no_safe_useful_unblocked_lane_exists
+    - human_approval_blocks_all_useful_work
+    - canonical_policy_conflict_blocks_all_useful_work
+    - security_or_resource_boundary_blocks_all_useful_work
+
+queues:
+  remote_sync:
+    durable_target: "CONTROL state when implemented; repository-local receipt/checkpoint until then"
+    operations:
+      - push_commit
+      - open_or_update_pr
+      - remote_review
+      - workflow_dispatch
+      - artifact_or_release_action
+    fields:
+      - operation_id
+      - dependency_ids
+      - base_commit
+      - target_remote_ref
+      - required_evidence
+      - state
+      - attempts
+      - last_error_class
+      - next_retry_condition
+    rules:
+      - preserve_order_for_dependent_operations
+      - deduplicate_equivalent_operations
+      - never_retry_destructive_or_privileged_actions_without_policy_check
+      - reconcile_remote_before_flush
+
+  runner:
+    slots: 1
+    rule: "Only runner-consuming jobs serialize. Runner unavailability never blocks unrelated local or plugin lanes."
+
+verification:
+  local_evidence_can_prove:
+    - local_static_checks
+    - local_unit_tests
+    - local_contract_tests
+    - local_integration_tests_when_dependencies_are_local
+  remote_evidence_required_for:
+    - github_ci_verified_claim
+    - remote_pr_review_claim
+    - remote_merge_claim
+    - github_release_claim
+  rule: "Missing remote evidence stays PENDING; it does not retroactively invalidate unrelated local evidence."
+
+state_machine:
+  service_states:
+    - UNKNOWN
+    - AVAILABLE
+    - DEGRADED
+    - UNAVAILABLE
+    - RECOVERING
+  lane_states:
+    - READY
+    - PLANNED
+    - RUNNING
+    - VERIFYING
+    - STANDBY
+    - WAITING_EXTERNAL
+    - PAUSED
+    - BLOCKED
+    - DONE
+    - CANCELLED
+  no_progress_rule: "A waiting external lane must yield scheduler attention to other runnable lanes."
+
+security:
+  no_fail_open_for_security: true
+  no_bypass_of_required_approval: true
+  no_force_push_as_automatic_recovery: true
+  no_secret_copy_into_fallback_logs_or_queues: true

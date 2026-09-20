@@ -1,5 +1,5 @@
-schema_version: "1.0"
-policy_id: "local-ai-os-plugin-team-v1"
+schema_version: "1.1"
+policy_id: "local-ai-os-plugin-team-v1.1"
 status: ACTIVE
 purpose: "Run project-helpful plugins as one coordinated engineering team with shared awareness, strict authority boundaries, and a single serialized GitHub Actions runner."
 
@@ -10,6 +10,8 @@ team_model:
   specialist_router: ".ai/specialist-router.yaml"
   canonical_integration_writer_slots: 1
   principle: "Plugins are specialist teammates, never independent project authorities."
+  resilience_policy: ".ai/resilience-policy.yaml"
+  failure_domain_rule: "A failed plugin, GitHub service or runner blocks only dependent lanes; Controller immediately reschedules other useful work."
 
 shared_awareness:
   every_active_plugin_lane_must:
@@ -62,6 +64,8 @@ activation:
   always_available_not_always_invoked: true
   task_envelope_decides_activation: true
   unavailable_plugin_blocks_only_dependent_lane: true
+  recompute_runnable_lanes_after_failure: true
+  waiting_external_lane_yields_scheduler: true
   prefer_existing_connected_plugin_over_new_dependency: true
   avoid_redundant_plugins_for_same_role: true
 

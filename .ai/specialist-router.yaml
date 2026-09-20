@@ -1,5 +1,5 @@
-schema_version: "1.0"
-policy_id: "local-ai-os-specialist-router-v1"
+schema_version: "1.1"
+policy_id: "local-ai-os-specialist-router-v1.1"
 status: ACTIVE
 purpose: "Route the coordinated plugin project team while invoking each specialist only when it materially improves correctness, evidence or delivery speed."
 
@@ -7,6 +7,7 @@ principle: "Always available; selectively invoked. Do not call every specialist 
 
 plugin_team_policy: ".ai/plugin-team.yaml"
 plugin_registry: ".ai/plugin-registry.yaml"
+resilience_policy: ".ai/resilience-policy.yaml"
 
 specialists:
   context7:
@@ -40,6 +41,15 @@ specialists:
       - auth_data_api_or_neon_backend_feature
   github:
     policy: ".ai/github-policy.yaml"
+    primary_role: "canonical remote, reviewable history, issues/PRs, remote diff/review, CI evidence, artifacts and optional bounded coding assistance"
+    trigger_examples:
+      - remote_sync
+      - pr_or_review
+      - ci_evidence
+      - workflow_logs
+      - issue_or_handoff
+      - release_artifact
+      - optional_secondary_coding_lane
   vercel:
     primary_role: "preview deployment, web/app runtime diagnostics and release support"
     trigger_examples: [preview_required, web_app_deployment, runtime_logs, deployment_validation]
@@ -49,14 +59,6 @@ specialists:
   canva:
     primary_role: "media/design production support"
     trigger_examples: [marketing_asset, media_pipeline_asset, visual_qa]
-    primary_role: "canonical remote, reviewable history, issues/PRs, remote diff/review, CI evidence, artifacts and collaboration"
-    trigger_examples:
-      - remote_sync
-      - pr_or_review
-      - ci_evidence
-      - workflow_logs
-      - issue_or_handoff
-      - release_artifact
 
 routing_order:
   - "Use repository contracts/state first."
@@ -74,7 +76,9 @@ cross_checks:
   high_risk_external_integration: ["context7", "exa", "github"]
 
 availability:
-  unavailable_specialist_rule: "Block only the dependent lane; continue unrelated safe work."
+  unavailable_specialist_rule: "Block only the dependent lane; immediately recompute and continue unrelated safe work."
+  github_outage_rule: "Continue local Git and local verification; queue remote operations; keep remote-only evidence pending."
+  runner_outage_rule: "Queue runner jobs and continue all non-runner lanes."
   never_guess_if_missing:
     - version_specific_external_api_semantics
     - destructive_database_effects

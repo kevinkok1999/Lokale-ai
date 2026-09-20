@@ -22,6 +22,7 @@ REQUIRED = [
     "AGENTS.md",
     ".ai/project-state.yaml",
     ".ai/execution-policy.yaml",
+    ".ai/resilience-policy.yaml",
     ".ai/plugin-team.yaml",
     ".ai/plugin-registry.yaml",
     ".ai/specialist-router.yaml",
@@ -109,6 +110,10 @@ def main() -> int:
             "router": ".ai/specialist-router.yaml",
             "specialists": ["context7", "exa", "neon", "github", "vercel", "figma", "canva"],
             "rule": "Keep all available; activate only specialists required by the current task envelope."
+        },
+        "resilience": {
+            "policy": ".ai/resilience-policy.yaml",
+            "rule": "Blocked lane != blocked project; GitHub/runner/plugin failures are isolated and other safe lanes continue."
         },
         "parallel_coordination": {
             "policy": ".ai/coordination-policy.yaml",

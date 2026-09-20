@@ -1,4 +1,4 @@
-schema_version: "1.2"
+schema_version: "1.3"
 policy_id: "local-ai-os-parallel-coordination-v1"
 status: ACTIVE
 goal: "Run independent work concurrently while preserving one coherent plan, shared awareness, deterministic integration and bounded resource use."
@@ -84,6 +84,8 @@ parallelism:
     - exa_research_lane_parallel_with_independent_implementation
     - neon_read_only_analysis_parallel_with_nonconflicting_local_work
     - github_remote_review_or_status_checks_parallel_with_local_read_only_work
+    - local_implementation_and_tests_during_github_outage
+    - unrelated_plugin_work_while_runner_is_busy_or_unavailable
   serialized:
     - writes_to_same_file_or_contract_boundary
     - canonical_project_state_update
@@ -152,3 +154,6 @@ stop_rules:
     - required_human_approval_blocks_all_useful_work
     - resource_or_security_boundary_blocks_all_useful_work
   lane_local_blocker: "Block only that lane and continue other independent lanes."
+  external_failure_rule: "Mark only dependent lanes WAITING_EXTERNAL or PAUSED, then recompute runnable lanes immediately."
+  github_failure_rule: "Continue local work and queue remote operations; never convert missing GitHub evidence into PASS."
+  runner_failure_rule: "Only runner-consuming jobs wait; all independent lanes continue."

@@ -26,6 +26,7 @@ Authoritative artifacts:
 - database/backend specialist policy: `.ai/neon-policy.yaml`
 - GitHub remote/CI policy: `.ai/github-policy.yaml`
 - coordinated specialist decision: `docs/adr/0005-coordinated-specialist-toolchain.md`
+- degraded mode/failover policy: `.ai/resilience-policy.yaml`, `docs/DEGRADED_MODE_AND_FAILOVER.md` and ADR 0006
 - Codex continuation: `docs/CODEX_HANDOFF.md`
 - evidence: `.ai/evidence/` and `.ai/reports/`
 

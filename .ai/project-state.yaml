@@ -1,8 +1,8 @@
-schema_version: "1.7"
+schema_version: "1.8"
 project: local-ai-os
 phase: "F_CODEX_READY"
 status: "READY_FOR_CODEX_IMPLEMENTATION"
-architecture_version: "1.7-coordinated-plugin-project-team"
+architecture_version: "1.8-resilient-degraded-mode"
 last_updated: "2026-09-20"
 last_verified_commit: "ec1f4ec4dc1f995647f6717dd506dd1e33b2c6d9"
 last_verified_commit_meaning: "Latest complete canonical content commit verified before the state/receipt commit that follows it"
@@ -18,6 +18,8 @@ execution:
   github_actions_runner_slots: 1
   heavy_gpu_job_slots_initial: 1
   coordination_policy: ".ai/coordination-policy.yaml"
+  resilience_policy: ".ai/resilience-policy.yaml"
+  resilience_check: "python scripts/resilience_check.py"
   plugin_team: ".ai/plugin-team.yaml"
   plugin_registry: ".ai/plugin-registry.yaml"
   plugin_team_check: "python scripts/plugin_team_check.py"
@@ -57,6 +59,7 @@ completed_milestones:
   - "Codex + Context7 current-documentation collaboration policy established"
   - "Context7 + Exa + Neon + GitHub specialist routing established"
   - "Unified plugin project team with single-runner scheduler and shared awareness established"
+  - "Failure-domain isolation and degraded-mode continuation policy established"
 active_tasks:
   - id: T001
     title: "Implement canonical schemas and validation harness"
@@ -119,6 +122,8 @@ evidence:
     - ".ai/evidence/multispecialist-toolchain-validation.json"
     - ".ai/evidence/plugin-project-team-validation.json"
 known_risks:
+  - "Durable remote-sync queue is policy/design only until implemented and tested."
+  - "Full CONTROL-node failover is a target capability and is not yet verified."
   - "Actual hardware, disk, driver and service state is unverified"
   - "No production implementation exists yet"
   - "Pairing and authenticated node protocol remains design-only"
